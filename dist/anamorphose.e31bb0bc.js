@@ -37726,7 +37726,8 @@ var Camera = /*#__PURE__*/function () {
     this.renderer = options.renderer;
     this.container = new _three.Object3D();
     this.setCamera();
-    this.setPosition(); // this.setOrbitControls()
+    this.setPosition();
+    this.setOrbitControls();
   }
 
   _createClass(Camera, [{
@@ -37735,6 +37736,8 @@ var Camera = /*#__PURE__*/function () {
       var _this = this;
 
       this.camera = new _three.PerspectiveCamera(75, window.innerWidth / window.innerheight, 0.1, 1000);
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
       this.container.add(this.camera);
       window.addEventListener('resize', function () {
         _this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -37748,16 +37751,14 @@ var Camera = /*#__PURE__*/function () {
       this.camera.position.x = 0;
       this.camera.position.y = 0;
       this.camera.position.z = 1;
-    } // setOrbitControls() {
-    //     this.orbitControls = new OrbitControls(
-    //         this.camera,
-    //         this.renderer.domElement
-    //     )
-    //     this.orbitControls.enabled = false
-    //     this.orbitControls.enableKeys = true
-    //     this.orbitControls.zoomSpeed = 1
-    // }
-
+    }
+  }, {
+    key: "setOrbitControls",
+    value: function setOrbitControls() {
+      this.orbitControls = new _OrbitControls.OrbitControls(this.camera, this.renderer.domElement);
+      this.orbitControls.enableKeys = true;
+      this.orbitControls.zoomSpeed = 1;
+    }
   }]);
 
   return Camera;
@@ -43451,6 +43452,8 @@ var App = /*#__PURE__*/function () {
     key: "render",
     value: function render() {
       this.renderer.render(this.scene, this.camera.camera);
+      this.world.cube.cube.rotation.x += 0.01;
+      this.world.cube.cube.rotation.y += 0.01;
     }
   }]);
 

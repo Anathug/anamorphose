@@ -8,7 +8,7 @@ export default class Camera {
 
         this.setCamera()
         this.setPosition()
-        // this.setOrbitControls()
+        this.setOrbitControls()
     }
     setCamera() {
         this.camera = new PerspectiveCamera(
@@ -17,6 +17,8 @@ export default class Camera {
             0.1,
             1000
         )
+        this.camera.aspect = window.innerWidth / window.innerHeight;
+        this.camera.updateProjectionMatrix();
         this.container.add(this.camera)
         window.addEventListener('resize', () => {
             this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -28,13 +30,12 @@ export default class Camera {
         this.camera.position.y = 0
         this.camera.position.z = 1
     }
-    // setOrbitControls() {
-    //     this.orbitControls = new OrbitControls(
-    //         this.camera,
-    //         this.renderer.domElement
-    //     )
-    //     this.orbitControls.enabled = false
-    //     this.orbitControls.enableKeys = true
-    //     this.orbitControls.zoomSpeed = 1
-    // }
+    setOrbitControls() {
+        this.orbitControls = new OrbitControls(
+            this.camera,
+            this.renderer.domElement
+        )
+        this.orbitControls.enableKeys = true
+        this.orbitControls.zoomSpeed = 1
+    }
 }

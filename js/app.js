@@ -26,7 +26,7 @@ export default class App {
             this.render()
         })
         window.addEventListener('resize', () => {
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            this.renderer.setSize(window.innerWidth, window.innerHeight)
         })
     }
     setCamera() {
@@ -44,5 +44,7 @@ export default class App {
     }
     render() {
         this.renderer.render(this.scene, this.camera.camera);
+        this.world.cube.cube.rotation.x += 0.01
+        this.world.cube.cube.rotation.y += 0.01
     }
 }
