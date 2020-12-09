@@ -2,7 +2,7 @@ import { Object3D } from 'three'
 
 import AmbientLightSource from './AmbientLight.js'
 import PointLightSource from './PointLight.js'
-import Cube from './Cube.js'
+import Scene from './Scene.js'
 
 export default class World {
     constructor() {
@@ -12,11 +12,12 @@ export default class World {
     init() {
         this.setAmbientLight()
         this.setPointLight()
-        this.setCube()
+        this.setScene()
     }
-    setCube() {
-        this.cube = new Cube()
-        this.container.add(this.cube.container)
+    setScene() {
+        this.scene = new Scene({
+        })
+        this.container.add(this.scene.container)
     }
     setAmbientLight() {
         this.light = new AmbientLightSource()

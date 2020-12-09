@@ -3,7 +3,7 @@ import { Object3D, AmbientLight } from 'three'
 export default class AmbientLightSource {
     constructor() {
         this.container = new Object3D()
-        this.params = { color: 0x232323 }
+        this.params = { color: 0x404040 }
         this.createAmbientLight()
     }
     createAmbientLight() {

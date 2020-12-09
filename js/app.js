@@ -19,7 +19,7 @@ export default class App {
             alpha: true,
         })
 
-        this.renderer.setClearColor(0x945121, 1)
+        this.renderer.setClearColor(0x0000ff, 1)
         this.renderer.setPixelRatio(window.devicePixelRatio)
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         gsap.ticker.add(() => {
@@ -44,7 +44,7 @@ export default class App {
     }
     render() {
         this.renderer.render(this.scene, this.camera.camera);
-        this.world.cube.cube.rotation.x += 0.01
-        this.world.cube.cube.rotation.y += 0.01
+        // this.world.scene.cube.rotation.x += 0.01
+        // this.world.cube.cube.rotation.y += 0.01
     }
 }

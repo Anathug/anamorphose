@@ -5,9 +5,9 @@ export default class PointLightSource {
         this.container = new Object3D()
         this.params = {
             color: 0xffffff,
-            positionX: 0,
-            positionY: 2,
-            positionZ: 5,
+            positionX: -30,
+            positionY: 20,
+            positionZ: 200,
         }
 
         this.createPointLight()

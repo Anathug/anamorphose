@@ -26,9 +26,9 @@ export default class Camera {
         })
     }
     setPosition() {
-        this.camera.position.x = 0
-        this.camera.position.y = 0
-        this.camera.position.z = 1
+        this.camera.position.x = -40
+        this.camera.position.y = 20
+        this.camera.position.z = 80
     }
     setOrbitControls() {
         this.orbitControls = new OrbitControls(
