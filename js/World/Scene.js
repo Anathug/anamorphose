@@ -7,7 +7,6 @@ export default class Scene {
         this.container.name = 'Scene'
 
         this.createScene()
-        console.log('test')
     }
     createScene() {
         const model = require('../../models/scene.gltf')

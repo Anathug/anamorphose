@@ -37748,9 +37748,9 @@ var Camera = /*#__PURE__*/function () {
   }, {
     key: "setPosition",
     value: function setPosition() {
-      this.camera.position.x = 0;
-      this.camera.position.y = 0;
-      this.camera.position.z = 1;
+      this.camera.position.x = -40;
+      this.camera.position.y = 20;
+      this.camera.position.z = 80;
     }
   }, {
     key: "setOrbitControls",
@@ -37787,7 +37787,7 @@ var AmbientLightSource = /*#__PURE__*/function () {
 
     this.container = new _three.Object3D();
     this.params = {
-      color: 0x232323
+      color: 0x404040
     };
     this.createAmbientLight();
   }
@@ -37827,9 +37827,9 @@ var PointLightSource = /*#__PURE__*/function () {
     this.container = new _three.Object3D();
     this.params = {
       color: 0xffffff,
-      positionX: 0,
-      positionY: 2,
-      positionZ: 5
+      positionX: -30,
+      positionY: 20,
+      positionZ: 200
     };
     this.createPointLight();
   }
@@ -40624,7 +40624,6 @@ var Scene = /*#__PURE__*/function () {
     this.container = new _three.Object3D();
     this.container.name = 'Scene';
     this.createScene();
-    console.log('test');
   }
 
   _createClass(Scene, [{
@@ -46217,7 +46216,7 @@ var App = /*#__PURE__*/function () {
 }();
 
 exports.default = App;
-},{"three":"node_modules/three/build/three.module.js","./Camera.js":"js/Camera.js","./World/index.js":"js/World/index.js","gsap":"node_modules/gsap/index.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"three":"node_modules/three/build/three.module.js","./Camera.js":"js/Camera.js","./World/index.js":"js/World/index.js","gsap":"node_modules/gsap/index.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -46249,7 +46248,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -46284,12 +46283,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"css/cursor.scss":[function(require,module,exports) {
+},{"./bundle-url":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"css/cursor.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Cursor.js":[function(require,module,exports) {
+},{"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Cursor.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46411,12 +46410,84 @@ var Cursor = /*#__PURE__*/function () {
 }();
 
 exports.default = Cursor;
-},{"gsap":"node_modules/gsap/index.js","../../css/cursor.scss":"css/cursor.scss"}],"index.js":[function(require,module,exports) {
+},{"gsap":"node_modules/gsap/index.js","../../css/cursor.scss":"css/cursor.scss"}],"css/timer.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Timer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+require("../../css/timer.scss");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Timer = /*#__PURE__*/function () {
+  function Timer() {
+    _classCallCheck(this, Timer);
+
+    this.interval = 2000;
+    this.time = 100000;
+    this.timer = null;
+    this.$timer = document.querySelector('.timer');
+    this.startTimer(); //  this.events()
+  }
+
+  _createClass(Timer, [{
+    key: "startTimer",
+    value: function startTimer() {
+      var _this = this;
+
+      this.timer = setInterval(function () {
+        if (_this.time > 0) {
+          _this.time = _this.time - 1000;
+          var min = Math.floor(_this.time / 60000);
+          var sec = (_this.time % 60000 / 1000).toFixed(0);
+          _this.$timer.innerHTML = "".concat(min, " : ").concat(sec);
+        } else {
+          _this.time = 0;
+        }
+      }, this.interval);
+    }
+  }, {
+    key: "events",
+    value: function events() {
+      var _this2 = this;
+
+      window.addEventListener('click', function () {
+        return _this2.updateTimer();
+      });
+    }
+  }, {
+    key: "updateTimer",
+    value: function updateTimer() {
+      this.interval = this.interval / 2;
+      clearInterval(this.timer);
+      this.startTimer();
+    }
+  }]);
+
+  return Timer;
+}();
+
+exports.default = Timer;
+},{"../../css/timer.scss":"css/timer.scss"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _app = _interopRequireDefault(require("./js/app"));
 
 var _Cursor = _interopRequireDefault(require("./js/Components/Cursor"));
+
+var _Timer = _interopRequireDefault(require("./js/Components/Timer"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46424,7 +46495,8 @@ new _app.default({
   canvas: document.querySelector('#_canvas')
 });
 new _Cursor.default();
-},{"./js/app":"js/app.js","./js/Components/Cursor":"js/Components/Cursor.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+new _Timer.default();
+},{"./js/app":"js/app.js","./js/Components/Cursor":"js/Components/Cursor.js","./js/Components/Timer":"js/Components/Timer.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -46452,7 +46524,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62192" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64923" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -46628,5 +46700,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
+},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
 //# sourceMappingURL=/anamorphose.e31bb0bc.js.map

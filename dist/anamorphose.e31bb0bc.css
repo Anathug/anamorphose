@@ -23,5 +23,12 @@
 .cursor__dot circle {
   fill: black;
 }
+.timer {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+}
 
 /*# sourceMappingURL=/anamorphose.e31bb0bc.css.map */

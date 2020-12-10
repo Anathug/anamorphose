@@ -24,6 +24,7 @@ export default class Cursor {
             this.$cursorDot.style.transform = `translateX(${event.clientX - 24}px) translateY(${event.clientY - 24}px)`
         })
     }
+
     events() {
         const $interractions = document.querySelectorAll('.cursor-hover')
         const $canvas = document.querySelector('canvas')

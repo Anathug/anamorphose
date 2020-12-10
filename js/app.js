@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import Camera from './Camera.js'
 import World from './World/index.js'
 import gsap from 'gsap'
-
 export default class App {
     constructor(_options) {
         this.canvas = _options.canvas
