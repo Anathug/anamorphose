@@ -46436,7 +46436,8 @@ var Timer = /*#__PURE__*/function () {
     _classCallCheck(this, Timer);
 
     this.interval = 2000;
-    this.time = 100000;
+    this.time = 12 * 24 * 60 * 60 * 1000 + 12 * 60 * 60 * 1000;
+    this.endtime = '30 Dec 2020 00:12:00 GMT';
     this.timer = null;
     this.$timer = document.querySelector('.timer');
     this.startTimer(); //  this.events()
@@ -46450,9 +46451,14 @@ var Timer = /*#__PURE__*/function () {
       this.timer = setInterval(function () {
         if (_this.time > 0) {
           _this.time = _this.time - 1000;
-          var min = Math.floor(_this.time / 60000);
-          var sec = (_this.time % 60000 / 1000).toFixed(0);
-          _this.$timer.innerHTML = "".concat(min, " : ").concat(sec);
+          var countMinute = 60 * 1000;
+          var countHour = 60 * countMinute;
+          var countDay = 24 * countHour;
+          var total = Date.parse(_this.endtime) - Date.parse(new Date());
+          var minutes = Math.floor(total / countMinute % 60);
+          var hours = Math.floor(total / countHour % 24);
+          var days = Math.floor(total / countDay);
+          _this.$timer.innerHTML = "d".concat(days, " h").concat(hours, " m").concat(minutes);
         } else {
           _this.time = 0;
         }
