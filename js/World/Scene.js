@@ -3,16 +3,16 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 export default class Scene {
     constructor() {
-      // Set up
-      this.container = new Object3D()
-      this.container.name = 'Scene'
+        this.container = new Object3D()
+        this.container.name = 'Scene'
 
-      this.createScene()
+        this.createScene()
+        console.log('test')
     }
     createScene() {
-      const model = require('../../models/scene.gltf')
+        const model = require('../../models/scene.gltf')
 
-      const loader = new GLTFLoader()
+        const loader = new GLTFLoader()
         loader.load(
             model,
             (gltf) => {
@@ -22,9 +22,8 @@ export default class Scene {
                 // pointing Mesh
                 this.scene = gltf.scene
 
-                // console.log(this.scene)
                 this.container.add(this.scene)
             },
         )
     }
-  }
+}

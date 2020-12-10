@@ -37748,9 +37748,9 @@ var Camera = /*#__PURE__*/function () {
   }, {
     key: "setPosition",
     value: function setPosition() {
-      this.camera.position.x = -40;
-      this.camera.position.y = 20;
-      this.camera.position.z = 80;
+      this.camera.position.x = 0;
+      this.camera.position.y = 0;
+      this.camera.position.z = 1;
     }
   }, {
     key: "setOrbitControls",
@@ -37787,7 +37787,7 @@ var AmbientLightSource = /*#__PURE__*/function () {
 
     this.container = new _three.Object3D();
     this.params = {
-      color: 0x404040
+      color: 0x232323
     };
     this.createAmbientLight();
   }
@@ -37827,9 +37827,9 @@ var PointLightSource = /*#__PURE__*/function () {
     this.container = new _three.Object3D();
     this.params = {
       color: 0xffffff,
-      positionX: -30,
-      positionY: 20,
-      positionZ: 200
+      positionX: 0,
+      positionY: 2,
+      positionZ: 5
     };
     this.createPointLight();
   }
@@ -40621,10 +40621,10 @@ var Scene = /*#__PURE__*/function () {
   function Scene() {
     _classCallCheck(this, Scene);
 
-    // Set up
     this.container = new _three.Object3D();
     this.container.name = 'Scene';
     this.createScene();
+    console.log('test');
   }
 
   _createClass(Scene, [{
@@ -40639,7 +40639,7 @@ var Scene = /*#__PURE__*/function () {
         // called when the resource is loaded
         // console.log(gltf)
         // pointing Mesh
-        _this.scene = gltf.scene; // console.log(this.scene)
+        _this.scene = gltf.scene;
 
         _this.container.add(_this.scene);
       });
@@ -46176,7 +46176,7 @@ var App = /*#__PURE__*/function () {
         antialias: true,
         alpha: true
       });
-      this.renderer.setClearColor(0x0000ff, 1);
+      this.renderer.setClearColor(0xffffff, 1);
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -46217,17 +46217,214 @@ var App = /*#__PURE__*/function () {
 }();
 
 exports.default = App;
-},{"three":"node_modules/three/build/three.module.js","./Camera.js":"js/Camera.js","./World/index.js":"js/World/index.js","gsap":"node_modules/gsap/index.js"}],"index.js":[function(require,module,exports) {
+},{"three":"node_modules/three/build/three.module.js","./Camera.js":"js/Camera.js","./World/index.js":"js/World/index.js","gsap":"node_modules/gsap/index.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"css/cursor.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Cursor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _gsap = _interopRequireDefault(require("gsap"));
+
+require("../../css/cursor.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Cursor = /*#__PURE__*/function () {
+  function Cursor() {
+    _classCallCheck(this, Cursor);
+
+    this.$cursorCircle = document.querySelector('.cursor__circle');
+    this.$cursorCircleSvg = this.$cursorCircle.querySelector('circle');
+    this.$cursorDot = document.querySelector('.cursor__dot');
+    this.isClicked = false;
+    this.holdTL = null;
+    this.init();
+    this.events();
+  }
+
+  _createClass(Cursor, [{
+    key: "init",
+    value: function init() {
+      var _this = this;
+
+      _gsap.default.to(this.$cursorCircleSvg, {
+        duration: 1.5,
+        strokeDashoffset: '370px',
+        ease: "power4.inOut",
+        delay: 1
+      });
+
+      this.holdTL = _gsap.default.timeline({
+        paused: true
+      });
+      this.holdTL.to(this.$cursorCircle, {
+        duration: 1,
+        scale: 3,
+        ease: "power3.inOut"
+      });
+      window.addEventListener('mousemove', function (event) {
+        _gsap.default.to(_this.$cursorCircle, {
+          duration: .25,
+          x: event.clientX - 20,
+          y: event.clientY - 20,
+          ease: "power1.out"
+        });
+
+        _this.$cursorDot.style.transform = "translateX(".concat(event.clientX - 24, "px) translateY(").concat(event.clientY - 24, "px)");
+      });
+    }
+  }, {
+    key: "events",
+    value: function events() {
+      var _this2 = this;
+
+      var $interractions = document.querySelectorAll('.cursor-hover');
+      var $canvas = document.querySelector('canvas');
+      window.addEventListener('mousedown', function () {
+        return _this2.mousedragonHandler();
+      });
+      window.addEventListener('mouseup', function () {
+        return _this2.mousedragoffHandler();
+      });
+      $interractions.forEach(function ($interraction) {
+        $interraction.addEventListener('mouseover', function () {
+          return _this2.mouseoverHandler();
+        });
+        $interraction.addEventListener('mouseout', function () {
+          return _this2.mouseoutHandler();
+        });
+      });
+    }
+  }, {
+    key: "mouseoverHandler",
+    value: function mouseoverHandler() {
+      _gsap.default.to(this.$cursorCircle, {
+        duration: .2,
+        scale: 3,
+        ease: "power1.inOut"
+      });
+    }
+  }, {
+    key: "mouseoutHandler",
+    value: function mouseoutHandler() {
+      _gsap.default.to(this.$cursorCircle, {
+        duration: .2,
+        scale: 1,
+        ease: "power1.inOut"
+      });
+    }
+  }, {
+    key: "mousedragonHandler",
+    value: function mousedragonHandler() {
+      this.isClicked = true;
+      this.holdTL.play().timeScale(1);
+    }
+  }, {
+    key: "mousedragoffHandler",
+    value: function mousedragoffHandler() {
+      this.isClicked = false;
+      this.holdTL.reverse().timeScale(-2);
+    }
+  }]);
+
+  return Cursor;
+}();
+
+exports.default = Cursor;
+},{"gsap":"node_modules/gsap/index.js","../../css/cursor.scss":"css/cursor.scss"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _app = _interopRequireDefault(require("./js/app"));
+
+var _Cursor = _interopRequireDefault(require("./js/Components/Cursor"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 new _app.default({
   canvas: document.querySelector('#_canvas')
 });
-},{"./js/app":"js/app.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+new _Cursor.default();
+},{"./js/app":"js/app.js","./js/Components/Cursor":"js/Components/Cursor.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -46255,7 +46452,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63370" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62192" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -46431,5 +46628,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
+},{}]},{},["../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
 //# sourceMappingURL=/anamorphose.e31bb0bc.js.map

@@ -19,7 +19,7 @@ export default class App {
             alpha: true,
         })
 
-        this.renderer.setClearColor(0x0000ff, 1)
+        this.renderer.setClearColor(0xffffff, 1)
         this.renderer.setPixelRatio(window.devicePixelRatio)
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         gsap.ticker.add(() => {

@@ -1,0 +1,27 @@
+.cursor {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  height: 44px;
+  width: 44px;
+  top: 0;
+  left: 0;
+  &__circle {
+    circle {
+      stroke: black;
+      stroke-width: 1px;
+      fill: transparent;
+      stroke-dasharray: 500px;
+      stroke-dashoffset: 500px;
+    }
+  }
+  &__dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    circle {
+      fill: black;
+    }
+  }
+}

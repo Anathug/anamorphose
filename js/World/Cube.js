@@ -12,6 +12,6 @@ export default class Cube {
         });
         this.cube = new THREE.Mesh(this.cubeGeometry, this.cubeMaterial);
         this.cube.position.set(0, 0, -10);
-        this.container.add(this.cube)
+        // this.container.add(this.cube)
     }
 }
