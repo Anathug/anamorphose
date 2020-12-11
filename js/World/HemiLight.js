@@ -3,7 +3,7 @@ import { Object3D, HemisphereLight, Color } from 'three'
 
 export default class HemisphereLightSource {
     constructor(options) {
-        this.debug = options.debug
+        // this.debug = options.debug
 
         this.container = new Object3D()
         this.params = {

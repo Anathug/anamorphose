@@ -45,6 +45,8 @@ export default class App {
             renderer: this.renderer,
             debug: this.debug
         })
+        this.camera.camera.add(this.world.audio.container.children[0])
+        this.world.audioMesh.cube.add(this.world.audio.container.children[0])
         this.scene.add(this.world.container)
     }
     render() {
