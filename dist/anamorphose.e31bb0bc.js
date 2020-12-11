@@ -49454,6 +49454,27 @@ var App = /*#__PURE__*/function () {
         });
       }
     }
+  }, {
+    key: "saveImage",
+    value: function saveImage() {
+      var fileName = "anamorphose.png";
+      var canvas = this.canvas;
+      var dataImage;
+
+      if (canvas.msToBlob) {
+        dataImage = canvas.msToBlob();
+        window.navigator.msSaveBlob(dataImage, fileName);
+      } else {
+        var link = document.createElement("a");
+        dataImage = canvas.toDataURL("image/png");
+        link.download = fileName;
+        dataImage = dataImage.replace("image/png", "image/octet-stream");
+        link.href = dataImage;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
   }]);
 
   return App;

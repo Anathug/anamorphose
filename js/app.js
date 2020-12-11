@@ -57,4 +57,24 @@ export default class App {
             this.debug = new dat.GUI({ width: 420 })
         }
     }
+    saveImage() {
+        const fileName = "anamorphose.png"
+        const canvas = this.canvas
+        let dataImage
+        if (canvas.msToBlob) {
+            dataImage = canvas.msToBlob()
+            window.navigator.msSaveBlob(dataImage, fileName)
+        }
+        else {
+            const link = document.createElement("a")
+            dataImage = canvas.toDataURL("image/png")
+            link.download = fileName
+            dataImage = dataImage.replace("image/png", "image/octet-stream")
+            link.href = dataImage
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+        }
+
+    }
 }
