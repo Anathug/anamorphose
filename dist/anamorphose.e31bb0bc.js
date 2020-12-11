@@ -37761,18 +37761,12 @@ var Camera = /*#__PURE__*/function () {
   }, {
     key: "setPosition",
     value: function setPosition() {
-<<<<<<< HEAD
-      this.camera.position.x = -40;
-      this.camera.position.y = 20;
-      this.camera.position.z = 80;
-=======
       this.camera.position.x = this.params.positionX;
       this.camera.position.y = this.params.positionY;
       this.camera.position.z = this.params.positionZ;
       this.camera.rotation.x = this.params.rotationX;
       this.camera.rotation.y = this.params.rotationY;
       this.camera.rotation.z = this.params.rotationZ;
->>>>>>> d3aee3a6a078a518c642b7b8b66b32202d66ba7f
     }
   }, {
     key: "setOrbitControls",
@@ -37836,11 +37830,7 @@ var AmbientLightSource = /*#__PURE__*/function () {
 
     this.container = new _three.Object3D();
     this.params = {
-<<<<<<< HEAD
-      color: 0x404040
-=======
       color: 0x40400
->>>>>>> d3aee3a6a078a518c642b7b8b66b32202d66ba7f
     };
     this.createAmbientLight();
   }
@@ -37880,11 +37870,7 @@ var PointLightSource = /*#__PURE__*/function () {
     this.debug = options.debug;
     this.container = new _three.Object3D();
     this.params = {
-<<<<<<< HEAD
-      color: 0xffffff,
-=======
       color: 0x0,
->>>>>>> d3aee3a6a078a518c642b7b8b66b32202d66ba7f
       positionX: -30,
       positionY: 20,
       positionZ: 200
@@ -40755,143 +40741,7 @@ var GLTFLoader = function () {
 }();
 
 exports.GLTFLoader = GLTFLoader;
-},{"../../../build/three.module.js":"node_modules/three/build/three.module.js"}],"models/scene.gltf":[function(require,module,exports) {
-module.exports = "/scene.c032425f.gltf";
-},{}],"js/World/Scene.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var THREE = _interopRequireWildcard(require("three"));
-
-var _GLTFLoader = require("three/examples/jsm/loaders/GLTFLoader");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Scene = /*#__PURE__*/function () {
-  function Scene() {
-    _classCallCheck(this, Scene);
-
-    this.container = new THREE.Object3D();
-    this.container.name = 'Scene';
-    this.createScene();
-  }
-
-  _createClass(Scene, [{
-    key: "createScene",
-    value: function createScene() {
-      var _this = this;
-
-      var model = require('../../models/scene.gltf');
-
-      var loader = new _GLTFLoader.GLTFLoader();
-      loader.load(model, function (gltf) {
-        _this.scene = gltf.scene;
-
-        _this.container.add(_this.scene);
-
-        _this.scene.children.forEach(function (el) {
-          el.material = new THREE.MeshToonMaterial({
-            color: 0xffffff
-          });
-        });
-      });
-    }
-  }]);
-
-  return Scene;
-}();
-
-exports.default = Scene;
-},{"three":"node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"node_modules/three/examples/jsm/loaders/GLTFLoader.js","../../models/scene.gltf":"models/scene.gltf"}],"js/World/index.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _three = require("three");
-
-var _AmbientLight = _interopRequireDefault(require("./AmbientLight.js"));
-
-var _PointLight = _interopRequireDefault(require("./PointLight.js"));
-
-var _HemiLight = _interopRequireDefault(require("./HemiLight.js"));
-
-var _Scene = _interopRequireDefault(require("./Scene.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var World = /*#__PURE__*/function () {
-  function World(options) {
-    _classCallCheck(this, World);
-
-    this.debug = options.debug;
-    this.container = new _three.Object3D();
-    this.init();
-  }
-
-  _createClass(World, [{
-    key: "init",
-    value: function init() {
-      this.setHemiLight(); // this.setAmbientLight()
-
-      this.setPointLight();
-      this.setScene();
-    }
-  }, {
-    key: "setScene",
-    value: function setScene() {
-      this.scene = new _Scene.default();
-      this.container.add(this.scene.container);
-    }
-  }, {
-    key: "setAmbientLight",
-    value: function setAmbientLight() {
-      this.light = new _AmbientLight.default();
-      this.container.add(this.light.container);
-    }
-  }, {
-    key: "setPointLight",
-    value: function setPointLight() {
-      this.light = new _PointLight.default({
-        debug: this.debug
-      });
-      this.container.add(this.light.container);
-    }
-  }, {
-    key: "setHemiLight",
-    value: function setHemiLight() {
-      this.light = new _HemiLight.default({
-        debug: this.debug
-      });
-      this.container.add(this.light.container);
-    }
-  }]);
-
-  return World;
-}();
-
-exports.default = World;
-},{"three":"node_modules/three/build/three.module.js","./AmbientLight.js":"js/World/AmbientLight.js","./PointLight.js":"js/World/PointLight.js","./HemiLight.js":"js/World/HemiLight.js","./Scene.js":"js/World/Scene.js"}],"node_modules/gsap/gsap-core.js":[function(require,module,exports) {
+},{"../../../build/three.module.js":"node_modules/three/build/three.module.js"}],"node_modules/gsap/gsap-core.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46305,7 +46155,167 @@ TweenMaxWithCSS = gsapWithCSS.core.Tween;
 
 exports.TweenMax = TweenMaxWithCSS;
 exports.default = exports.gsap = gsapWithCSS;
-},{"./gsap-core.js":"node_modules/gsap/gsap-core.js","./CSSPlugin.js":"node_modules/gsap/CSSPlugin.js"}],"node_modules/dat.gui/build/dat.gui.module.js":[function(require,module,exports) {
+},{"./gsap-core.js":"node_modules/gsap/gsap-core.js","./CSSPlugin.js":"node_modules/gsap/CSSPlugin.js"}],"models/scene.gltf":[function(require,module,exports) {
+module.exports = "/scene.c032425f.gltf";
+},{}],"js/World/Scene.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var THREE = _interopRequireWildcard(require("three"));
+
+var _GLTFLoader = require("three/examples/jsm/loaders/GLTFLoader");
+
+var _gsap = _interopRequireDefault(require("gsap"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Scene = /*#__PURE__*/function () {
+  function Scene() {
+    _classCallCheck(this, Scene);
+
+    this.container = new THREE.Object3D();
+    this.container.name = 'Scene';
+    this.createScene();
+  }
+
+  _createClass(Scene, [{
+    key: "createScene",
+    value: function createScene() {
+      var _this = this;
+
+      var model = require('../../models/scene.gltf');
+
+      var loader = new _GLTFLoader.GLTFLoader();
+      loader.load(model, function (gltf) {
+        console.log(gltf); // 🚧 Animation modulation de l'espace
+        // this.cheminee = gltf.scene.children[8]
+        // this.cheminee.position.y = 100
+        // console.log(this.cheminee.position)
+
+        _this.scene = gltf.scene;
+
+        _this.container.add(_this.scene);
+
+        _this.scene.children.forEach(function (el) {
+          el.material = new THREE.MeshToonMaterial({
+            color: 0xffffff
+          });
+        });
+
+        _this.setMovement();
+      });
+    }
+  }, {
+    key: "setMovement",
+    value: function setMovement() {
+      _gsap.default.ticker.add(function () {// this.moduleEspace()
+      });
+    }
+  }, {
+    key: "moduleEspace",
+    value: function moduleEspace() {
+      if (this.cheminee.position.y >= 8.1) {
+        this.cheminee.position.y -= 0.3;
+      }
+    }
+  }]);
+
+  return Scene;
+}();
+
+exports.default = Scene;
+},{"three":"node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"node_modules/three/examples/jsm/loaders/GLTFLoader.js","gsap":"node_modules/gsap/index.js","../../models/scene.gltf":"models/scene.gltf"}],"js/World/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _three = require("three");
+
+var _AmbientLight = _interopRequireDefault(require("./AmbientLight.js"));
+
+var _PointLight = _interopRequireDefault(require("./PointLight.js"));
+
+var _HemiLight = _interopRequireDefault(require("./HemiLight.js"));
+
+var _Scene = _interopRequireDefault(require("./Scene.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var World = /*#__PURE__*/function () {
+  function World(options) {
+    _classCallCheck(this, World);
+
+    this.debug = options.debug;
+    this.container = new _three.Object3D();
+    this.init();
+  }
+
+  _createClass(World, [{
+    key: "init",
+    value: function init() {
+      this.setHemiLight(); // this.setAmbientLight()
+
+      this.setPointLight();
+      this.setScene();
+    }
+  }, {
+    key: "setScene",
+    value: function setScene() {
+      this.scene = new _Scene.default();
+      this.container.add(this.scene.container);
+    }
+  }, {
+    key: "setAmbientLight",
+    value: function setAmbientLight() {
+      this.light = new _AmbientLight.default();
+      this.container.add(this.light.container);
+    }
+  }, {
+    key: "setPointLight",
+    value: function setPointLight() {
+      this.light = new _PointLight.default({
+        debug: this.debug
+      });
+      this.container.add(this.light.container);
+    }
+  }, {
+    key: "setHemiLight",
+    value: function setHemiLight() {
+      this.light = new _HemiLight.default({
+        debug: this.debug
+      });
+      this.container.add(this.light.container);
+    }
+  }]);
+
+  return World;
+}();
+
+exports.default = World;
+},{"three":"node_modules/three/build/three.module.js","./AmbientLight.js":"js/World/AmbientLight.js","./PointLight.js":"js/World/PointLight.js","./HemiLight.js":"js/World/HemiLight.js","./Scene.js":"js/World/Scene.js"}],"node_modules/dat.gui/build/dat.gui.module.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49317,11 +49327,7 @@ var App = /*#__PURE__*/function () {
 }();
 
 exports.default = App;
-<<<<<<< HEAD
-},{"three":"node_modules/three/build/three.module.js","./Camera.js":"js/Camera.js","./World/index.js":"js/World/index.js","gsap":"node_modules/gsap/index.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-=======
-},{"three":"node_modules/three/build/three.module.js","./Camera.js":"js/Camera.js","./World/index.js":"js/World/index.js","gsap":"node_modules/gsap/index.js","dat.gui":"node_modules/dat.gui/build/dat.gui.module.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
->>>>>>> d3aee3a6a078a518c642b7b8b66b32202d66ba7f
+},{"three":"node_modules/three/build/three.module.js","./Camera.js":"js/Camera.js","./World/index.js":"js/World/index.js","gsap":"node_modules/gsap/index.js","dat.gui":"node_modules/dat.gui/build/dat.gui.module.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -49635,11 +49641,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-<<<<<<< HEAD
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64923" + '/');
-=======
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61668" + '/');
->>>>>>> d3aee3a6a078a518c642b7b8b66b32202d66ba7f
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58427" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
