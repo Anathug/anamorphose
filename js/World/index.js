@@ -3,6 +3,8 @@ import { Object3D } from 'three'
 import AmbientLightSource from './AmbientLight.js'
 import PointLightSource from './PointLight.js'
 import HemisphereLightSource from './HemiLight.js'
+import Audio from './Audio.js'
+import AudioMesh from './AudioMesh.js'
 import Scene from './Scene.js'
 
 export default class World {
@@ -13,7 +15,8 @@ export default class World {
     }
     init() {
         this.setHemiLight()
-        // this.setAmbientLight()
+        this.setAudio()
+        this.setAudioMesh()
         this.setPointLight()
         this.setScene()
     }
@@ -32,5 +35,13 @@ export default class World {
     setHemiLight() {
         this.light = new HemisphereLightSource({ debug: this.debug })
         this.container.add(this.light.container)
+    }
+    setAudio() {
+        this.audio = new Audio()
+        this.container.add(this.audio.container)
+    }
+    setAudioMesh() {
+        this.audioMesh = new AudioMesh()
+        this.container.add(this.audioMesh.container)
     }
 }

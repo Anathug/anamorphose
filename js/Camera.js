@@ -1,4 +1,5 @@
 import { Object3D, PerspectiveCamera } from 'three'
+import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 export default class Camera {
@@ -6,17 +7,20 @@ export default class Camera {
         this.renderer = options.renderer
         this.container = new Object3D()
         this.params = {
-            positionX: -20,
+            positionX: 25,
             positionY: 20,
-            positionZ: 80,
-            rotationX: 0,
-            rotationY: 0,
-            rotationZ: 0
+            positionZ: 50,
+            rotationX: -0.13,
+            rotationY: 0.03,
+            rotationZ: 0.02
         }
         this.debug = options.debug
         this.setCamera()
         this.setPosition()
         this.setOrbitControls()
+        window.addEventListener('click', () => {
+            this.setPositionalAudio()
+        })
         if (this.debug) {
             this.setDebug()
         }
@@ -35,6 +39,9 @@ export default class Camera {
             this.camera.aspect = window.innerWidth / window.innerHeight;
             this.camera.updateProjectionMatrix();
         })
+        window.addEventListener('mousemove', (e) => {
+            this.mouseMovement(e)
+        })
     }
     setPosition() {
         this.camera.position.x = this.params.positionX
@@ -43,6 +50,17 @@ export default class Camera {
         this.camera.rotation.x = this.params.rotationX
         this.camera.rotation.y = this.params.rotationY
         this.camera.rotation.z = this.params.rotationZ
+    }
+    mouseMovement(e) {
+        // let mouseX = e.clientX - window.innerWidth / 2
+        // let mouseY = e.clientY - window.innerHeight / 2
+        // this.camera.position.x = this.params.positionX - mouseX / 20
+        // this.camera.position.z = this.params.positionZ + mouseY / 30
+        // this.camera.rotation.y = this.params.rotationY - mouseX / 1000
+    }
+    setPositionalAudio() {
+
+
     }
     setOrbitControls() {
         this.orbitControls = new OrbitControls(

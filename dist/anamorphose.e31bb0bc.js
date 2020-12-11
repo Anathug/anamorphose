@@ -37709,9 +37709,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _three = require("three");
+var THREE = _interopRequireWildcard(require("three"));
 
 var _OrbitControls = require("three/examples/jsm/controls/OrbitControls.js");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -37721,22 +37725,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var Camera = /*#__PURE__*/function () {
   function Camera(options) {
+    var _this = this;
+
     _classCallCheck(this, Camera);
 
     this.renderer = options.renderer;
-    this.container = new _three.Object3D();
+    this.container = new THREE.Object3D();
     this.params = {
-      positionX: -20,
+      positionX: 25,
       positionY: 20,
-      positionZ: 80,
-      rotationX: 0,
-      rotationY: 0,
-      rotationZ: 0
+      positionZ: 50,
+      rotationX: -0.13,
+      rotationY: 0.03,
+      rotationZ: 0.02
     };
     this.debug = options.debug;
     this.setCamera();
     this.setPosition();
     this.setOrbitControls();
+    window.addEventListener('click', function () {
+      _this.setPositionalAudio();
+    });
 
     if (this.debug) {
       this.setDebug();
@@ -37746,16 +37755,19 @@ var Camera = /*#__PURE__*/function () {
   _createClass(Camera, [{
     key: "setCamera",
     value: function setCamera() {
-      var _this = this;
+      var _this2 = this;
 
-      this.camera = new _three.PerspectiveCamera(75, window.innerWidth / window.innerheight, 0.1, 1000);
+      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerheight, 0.1, 1000);
       this.camera.aspect = window.innerWidth / window.innerHeight;
       this.camera.updateProjectionMatrix();
       this.container.add(this.camera);
       window.addEventListener('resize', function () {
-        _this.camera.aspect = window.innerWidth / window.innerHeight;
+        _this2.camera.aspect = window.innerWidth / window.innerHeight;
 
-        _this.camera.updateProjectionMatrix();
+        _this2.camera.updateProjectionMatrix();
+      });
+      window.addEventListener('mousemove', function (e) {
+        _this2.mouseMovement(e);
       });
     }
   }, {
@@ -37769,6 +37781,17 @@ var Camera = /*#__PURE__*/function () {
       this.camera.rotation.z = this.params.rotationZ;
     }
   }, {
+    key: "mouseMovement",
+    value: function mouseMovement(e) {// let mouseX = e.clientX - window.innerWidth / 2
+      // let mouseY = e.clientY - window.innerHeight / 2
+      // this.camera.position.x = this.params.positionX - mouseX / 20
+      // this.camera.position.z = this.params.positionZ + mouseY / 30
+      // this.camera.rotation.y = this.params.rotationY - mouseX / 1000
+    }
+  }, {
+    key: "setPositionalAudio",
+    value: function setPositionalAudio() {}
+  }, {
     key: "setOrbitControls",
     value: function setOrbitControls() {
       this.orbitControls = new _OrbitControls.OrbitControls(this.camera, this.renderer.domElement);
@@ -37778,27 +37801,27 @@ var Camera = /*#__PURE__*/function () {
   }, {
     key: "setDebug",
     value: function setDebug() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.debugFolder = this.debug.addFolder('Camera');
       this.debugFolder.open();
       this.debugFolder.add(this.params, 'positionX', 0, 100, 0.01).onChange(function () {
-        _this2.camera.position.x = _this2.params.positionX;
+        _this3.camera.position.x = _this3.params.positionX;
       });
       this.debugFolder.add(this.params, 'positionY', 0, 100, 0.01).onChange(function () {
-        _this2.camera.position.y = _this2.params.positionY;
+        _this3.camera.position.y = _this3.params.positionY;
       });
       this.debugFolder.add(this.params, 'positionZ', 0, 100, 0.01).onChange(function () {
-        _this2.camera.position.z = _this2.params.positionZ;
+        _this3.camera.position.z = _this3.params.positionZ;
       });
       this.debugFolder.add(this.params, 'rotationX', -1, 1, 0.01).onChange(function () {
-        _this2.camera.rotation.x = _this2.params.rotationX;
+        _this3.camera.rotation.x = _this3.params.rotationX;
       });
       this.debugFolder.add(this.params, 'rotationY', -1, 1, 0.01).onChange(function () {
-        _this2.camera.rotation.y = _this2.params.rotationY;
+        _this3.camera.rotation.y = _this3.params.rotationY;
       });
       this.debugFolder.add(this.params, 'rotationZ', -1, 1, 0.01).onChange(function () {
-        _this2.camera.rotation.z = _this2.params.rotationZ;
+        _this3.camera.rotation.z = _this3.params.rotationZ;
       });
       this.debugFolder.open();
     }
@@ -37939,7 +37962,7 @@ var HemisphereLightSource = /*#__PURE__*/function () {
   function HemisphereLightSource(options) {
     _classCallCheck(this, HemisphereLightSource);
 
-    this.debug = options.debug;
+    // this.debug = options.debug
     this.container = new _three.Object3D();
     this.params = {
       firstColor: 0xdc5353,
@@ -37992,6 +38015,97 @@ var HemisphereLightSource = /*#__PURE__*/function () {
 }();
 
 exports.default = HemisphereLightSource;
+},{"three":"node_modules/three/build/three.module.js"}],"js/World/Audio.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var THREE = _interopRequireWildcard(require("three"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Audio = /*#__PURE__*/function () {
+  function Audio() {
+    _classCallCheck(this, Audio);
+
+    this.container = new THREE.Object3D();
+    this.createAudio();
+  }
+
+  _createClass(Audio, [{
+    key: "createAudio",
+    value: function createAudio() {
+      var listener = new THREE.AudioListener();
+      var audioElement = document.querySelector('#audio');
+      audioElement.play();
+      var positionalAudio = new THREE.PositionalAudio(listener);
+      positionalAudio.setMediaElementSource(audioElement);
+      positionalAudio.setRefDistance(1);
+      positionalAudio.setDirectionalCone(180, 230, 0.1);
+      this.container.add(listener, positionalAudio);
+    }
+  }]);
+
+  return Audio;
+}();
+
+exports.default = Audio;
+},{"three":"node_modules/three/build/three.module.js"}],"js/World/AudioMesh.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var THREE = _interopRequireWildcard(require("three"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var AudioMesh = /*#__PURE__*/function () {
+  function AudioMesh() {
+    _classCallCheck(this, AudioMesh);
+
+    this.container = new THREE.Object3D();
+    this.setAudioMesh();
+  }
+
+  _createClass(AudioMesh, [{
+    key: "setAudioMesh",
+    value: function setAudioMesh() {
+      this.cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+      this.cubeMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff
+      });
+      this.cube = new THREE.Mesh(this.cubeGeometry, this.cubeMaterial);
+      this.cube.position.set(0, 0, -10);
+      this.container.add(this.cube);
+    }
+  }]);
+
+  return AudioMesh;
+}();
+
+exports.default = AudioMesh;
 },{"three":"node_modules/three/build/three.module.js"}],"node_modules/three/examples/jsm/loaders/GLTFLoader.js":[function(require,module,exports) {
 "use strict";
 
@@ -46254,6 +46368,10 @@ var _PointLight = _interopRequireDefault(require("./PointLight.js"));
 
 var _HemiLight = _interopRequireDefault(require("./HemiLight.js"));
 
+var _Audio = _interopRequireDefault(require("./Audio.js"));
+
+var _AudioMesh = _interopRequireDefault(require("./AudioMesh.js"));
+
 var _Scene = _interopRequireDefault(require("./Scene.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -46276,8 +46394,9 @@ var World = /*#__PURE__*/function () {
   _createClass(World, [{
     key: "init",
     value: function init() {
-      this.setHemiLight(); // this.setAmbientLight()
-
+      this.setHemiLight();
+      this.setAudio();
+      this.setAudioMesh();
       this.setPointLight();
       this.setScene();
     }
@@ -46309,13 +46428,25 @@ var World = /*#__PURE__*/function () {
       });
       this.container.add(this.light.container);
     }
+  }, {
+    key: "setAudio",
+    value: function setAudio() {
+      this.audio = new _Audio.default();
+      this.container.add(this.audio.container);
+    }
+  }, {
+    key: "setAudioMesh",
+    value: function setAudioMesh() {
+      this.audioMesh = new _AudioMesh.default();
+      this.container.add(this.audioMesh.container);
+    }
   }]);
 
   return World;
 }();
 
 exports.default = World;
-},{"three":"node_modules/three/build/three.module.js","./AmbientLight.js":"js/World/AmbientLight.js","./PointLight.js":"js/World/PointLight.js","./HemiLight.js":"js/World/HemiLight.js","./Scene.js":"js/World/Scene.js"}],"node_modules/dat.gui/build/dat.gui.module.js":[function(require,module,exports) {
+},{"three":"node_modules/three/build/three.module.js","./AmbientLight.js":"js/World/AmbientLight.js","./PointLight.js":"js/World/PointLight.js","./HemiLight.js":"js/World/HemiLight.js","./Audio.js":"js/World/Audio.js","./AudioMesh.js":"js/World/AudioMesh.js","./Scene.js":"js/World/Scene.js"}],"node_modules/dat.gui/build/dat.gui.module.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49305,6 +49436,8 @@ var App = /*#__PURE__*/function () {
         renderer: this.renderer,
         debug: this.debug
       });
+      this.camera.camera.add(this.world.audio.container.children[0]);
+      this.world.audioMesh.cube.add(this.world.audio.container.children[0]);
       this.scene.add(this.world.container);
     }
   }, {
