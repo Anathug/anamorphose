@@ -2,9 +2,13 @@ import * as THREE from 'three';
 import Camera from './Camera.js'
 import World from './World/index.js'
 import gsap from 'gsap'
+import * as dat from 'dat.gui'
+
 export default class App {
     constructor(_options) {
         this.canvas = _options.canvas
+        this.debug = null;
+        this.setConfig()
         this.setRenderer()
         this.setCamera()
         this.setWorld()
@@ -18,7 +22,7 @@ export default class App {
             alpha: true,
         })
 
-        this.renderer.setClearColor(0xffffff, 1)
+        this.renderer.setClearColor(0x000000, 1)
         this.renderer.setPixelRatio(window.devicePixelRatio)
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         gsap.ticker.add(() => {
@@ -30,20 +34,25 @@ export default class App {
     }
     setCamera() {
         this.camera = new Camera({
-            renderer: this.renderer
+            renderer: this.renderer,
+            debug: this.debug
         })
         this.scene.add(this.camera.container)
     }
     setWorld() {
         this.world = new World({
             camera: this.camera,
-            renderer: this.renderer
+            renderer: this.renderer,
+            debug: this.debug
         })
         this.scene.add(this.world.container)
     }
     render() {
         this.renderer.render(this.scene, this.camera.camera);
-        // this.world.scene.cube.rotation.x += 0.01
-        // this.world.cube.cube.rotation.y += 0.01
+    }
+    setConfig() {
+        if (window.location.hash === '#debug') {
+            this.debug = new dat.GUI({ width: 420 })
+        }
     }
 }
