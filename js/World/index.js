@@ -14,11 +14,12 @@ export default class World {
         this.init()
     }
     init() {
-        this.setHemiLight()
+        // this.setHemiLight()
         this.setAudio()
         this.setAudioMesh()
-        this.setPointLight()
+        // this.setPointLight()
         this.setScene()
+        // this.setAmbientLight()
     }
     setScene() {
         this.scene = new Scene()
@@ -37,7 +38,7 @@ export default class World {
         this.container.add(this.light.container)
     }
     setAudio() {
-        this.audio = new Audio()
+        this.audio = new Audio('#audio', 1)
         this.container.add(this.audio.container)
     }
     setAudioMesh() {

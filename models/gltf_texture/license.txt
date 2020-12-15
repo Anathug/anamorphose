@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pre Bake Nuit
+* source:	https://sketchfab.com/3d-models/pre-bake-nuit-59c062fa30c74820ad3af0522be0f24d
+* author:	Phy_bs (https://sketchfab.com/Phy_bs)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pre Bake Nuit" (https://sketchfab.com/3d-models/pre-bake-nuit-59c062fa30c74820ad3af0522be0f24d) by Phy_bs (https://sketchfab.com/Phy_bs) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

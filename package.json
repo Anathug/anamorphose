@@ -11,8 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@types/dat.gui": "^0.7.6",
+    "css": "^3.0.0",
     "dat.gui": "^0.7.7",
     "gsap": "^3.5.1",
+    "splitting": "^1.0.6",
     "three": "^0.123.0"
   },
   "devDependencies": {

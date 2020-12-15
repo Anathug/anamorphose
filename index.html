@@ -8,6 +8,8 @@
 </head>
 <body>
     <div class="container">
+        <div class="intro">
+        </div>
         <div class="cursor">
             <svg class="cursor__circle" height="44" width="44">
                 <circle cx="22" cy="22" r="20">
@@ -17,10 +19,23 @@
             </svg>
         </div>
         <div class="timer"></div>
+        <div class="music_button">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="photo">
+            <img src="images/photo.svg" alt="">
+        </div>
     </div>
     <canvas id="_canvas"></canvas>
     <audio loop id="audio" preload="auto" >
         <source src="./audio/track_01.mp3" type="audio/mp3">
+    </audio>
+    <audio loop id="music" preload="auto" >
+        <source src="./audio/music1.mp3" type="audio/mp3">
     </audio>
     <script src="./index.js"></script>
 </body>

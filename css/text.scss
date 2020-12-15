@@ -1,0 +1,62 @@
+@import 'variables';
+
+.text {
+  &__container {
+    position: fixed;
+    z-index: 100;
+    top: $marge;
+    left: $marge;
+    width: 45vw;
+    display: flex;
+    flex-direction: column;
+    &.leave {
+      .splitting .char, :after {
+        animation: fade-out .6s cubic-bezier(.5, 0, .5, 1) both;
+        animation-delay: calc(1ms * var(--char-index) + 300ms );
+      }
+    }
+    h2, p {
+      color: $white;
+    }
+    h2 {
+      font-family: 'Silk';
+      font-size: 70px;
+      line-height: 70px;
+      padding-bottom: 20px;
+      word-break: normal;
+      word-spacing: 100vw;
+      pointer-events: none;
+    }
+    h2:after {
+      content: url(../images/close.svg);
+      padding-left: 20px;
+      pointer-events: all;
+    }
+    p {
+      font-size: 16px;
+      line-height: 28px;
+      letter-spacing: 5%;
+    }
+    .splitting .char, :after {
+      animation: slide-in .7s cubic-bezier(.5, 0, .5, 1) both;
+      animation-delay: calc(3ms * var(--char-index) + 1000ms );
+    }
+    :after {
+      animation-delay: 1000ms;
+    }
+  }
+}
+
+
+@keyframes slide-in {
+  from {
+    transform: translateY(1.5em);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}

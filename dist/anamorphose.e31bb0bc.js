@@ -37732,9 +37732,9 @@ var Camera = /*#__PURE__*/function () {
     this.renderer = options.renderer;
     this.container = new THREE.Object3D();
     this.params = {
-      positionX: 25,
-      positionY: 20,
-      positionZ: 50,
+      positionX: 500,
+      positionY: 500,
+      positionZ: 500,
       rotationX: -0.13,
       rotationY: 0.03,
       rotationZ: 0.02
@@ -37757,7 +37757,7 @@ var Camera = /*#__PURE__*/function () {
     value: function setCamera() {
       var _this2 = this;
 
-      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerheight, 0.1, 1000);
+      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerheight, 0.1, 10000);
       this.camera.aspect = window.innerWidth / window.innerHeight;
       this.camera.updateProjectionMatrix();
       this.container.add(this.camera);
@@ -37965,7 +37965,7 @@ var HemisphereLightSource = /*#__PURE__*/function () {
     // this.debug = options.debug
     this.container = new _three.Object3D();
     this.params = {
-      firstColor: 0xdc5353,
+      firstColor: 0xffffff,
       secondColor: 0xffffff,
       intensity: 0.6,
       positionX: 0,
@@ -38036,10 +38036,12 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var Audio = /*#__PURE__*/function () {
-  function Audio() {
+  function Audio(file, volume) {
     _classCallCheck(this, Audio);
 
     this.container = new THREE.Object3D();
+    this.file = file;
+    this.volume = volume;
     this.createAudio();
   }
 
@@ -38047,11 +38049,12 @@ var Audio = /*#__PURE__*/function () {
     key: "createAudio",
     value: function createAudio() {
       var listener = new THREE.AudioListener();
-      var audioElement = document.querySelector('#audio');
+      var audioElement = document.querySelector(this.file);
       audioElement.play();
       var positionalAudio = new THREE.PositionalAudio(listener);
       positionalAudio.setMediaElementSource(audioElement);
       positionalAudio.setRefDistance(1);
+      positionalAudio.setVolume(this.volume);
       positionalAudio.setDirectionalCone(180, 230, 0.1);
       this.container.add(listener, positionalAudio);
     }
@@ -46269,8 +46272,8 @@ TweenMaxWithCSS = gsapWithCSS.core.Tween;
 
 exports.TweenMax = TweenMaxWithCSS;
 exports.default = exports.gsap = gsapWithCSS;
-},{"./gsap-core.js":"node_modules/gsap/gsap-core.js","./CSSPlugin.js":"node_modules/gsap/CSSPlugin.js"}],"models/scene.gltf":[function(require,module,exports) {
-module.exports = "/scene.c032425f.gltf";
+},{"./gsap-core.js":"node_modules/gsap/gsap-core.js","./CSSPlugin.js":"node_modules/gsap/CSSPlugin.js"}],"models/untitled.gltf":[function(require,module,exports) {
+module.exports = "/untitled.d8595e30.gltf";
 },{}],"js/World/Scene.js":[function(require,module,exports) {
 "use strict";
 
@@ -46311,24 +46314,28 @@ var Scene = /*#__PURE__*/function () {
     value: function createScene() {
       var _this = this;
 
-      var model = require('../../models/scene.gltf');
+      // const IMAGE = require('../../images/che.jpeg')
+      // var textureLoader = new THREE.TextureLoader();
+      // var texture = textureLoader.load( IMAGE );
+      // texture.flipY = false;
+      // var material = new THREE.MeshBasicMaterial( { map: texture } );
+      // console.log(material)
+      var model = require('../../models/untitled.gltf');
 
       var loader = new _GLTFLoader.GLTFLoader();
       loader.load(model, function (gltf) {
-        console.log(gltf); // 🚧 Animation modulation de l'espace
-        // this.cheminee = gltf.scene.children[8]
-        // this.cheminee.position.y = 100
-        // console.log(this.cheminee.position)
-
+        console.log(gltf.scene);
         _this.scene = gltf.scene;
+        _this.scene.scale.x = 0.05, _this.scene.scale.y = 0.05, _this.scene.scale.z = 0.05; // 🚧 Changement de texture
+        // this.cheminee = gltf.scene.children[0].children[0].children[0].children[0].children[8]
+        // this.cheminee.traverse ( ( o ) => {
+        //     if ( o.isMesh ) {
+        //       o.material.map = texture
+        //     }
+        //   } )
+        // console.log(this.cheminee)
 
         _this.container.add(_this.scene);
-
-        _this.scene.children.forEach(function (el) {
-          el.material = new THREE.MeshToonMaterial({
-            color: 0xffffff
-          });
-        });
 
         _this.setMovement();
       });
@@ -46352,7 +46359,7 @@ var Scene = /*#__PURE__*/function () {
 }();
 
 exports.default = Scene;
-},{"three":"node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"node_modules/three/examples/jsm/loaders/GLTFLoader.js","gsap":"node_modules/gsap/index.js","../../models/scene.gltf":"models/scene.gltf"}],"js/World/index.js":[function(require,module,exports) {
+},{"three":"node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"node_modules/three/examples/jsm/loaders/GLTFLoader.js","gsap":"node_modules/gsap/index.js","../../models/untitled.gltf":"models/untitled.gltf"}],"js/World/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46394,11 +46401,11 @@ var World = /*#__PURE__*/function () {
   _createClass(World, [{
     key: "init",
     value: function init() {
-      this.setHemiLight();
+      // this.setHemiLight()
       this.setAudio();
-      this.setAudioMesh();
-      this.setPointLight();
-      this.setScene();
+      this.setAudioMesh(); // this.setPointLight()
+
+      this.setScene(); // this.setAmbientLight()
     }
   }, {
     key: "setScene",
@@ -46431,7 +46438,7 @@ var World = /*#__PURE__*/function () {
   }, {
     key: "setAudio",
     value: function setAudio() {
-      this.audio = new _Audio.default();
+      this.audio = new _Audio.default('#audio', 1);
       this.container.add(this.audio.container);
     }
   }, {
@@ -49408,6 +49415,7 @@ var App = /*#__PURE__*/function () {
         alpha: true
       });
       this.renderer.setClearColor(0x000000, 1);
+      this.renderer.outputEncoding = THREE.GammaEncoding;
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -49675,12 +49683,12 @@ var Cursor = /*#__PURE__*/function () {
 }();
 
 exports.default = Cursor;
-},{"gsap":"node_modules/gsap/index.js","../../css/cursor.scss":"css/cursor.scss"}],"css/timer.scss":[function(require,module,exports) {
+},{"gsap":"node_modules/gsap/index.js","../../css/cursor.scss":"css/cursor.scss"}],"css/navigation.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Timer.js":[function(require,module,exports) {
+},{"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Navigation.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49688,7 +49696,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-require("../../css/timer.scss");
+require("../../css/navigation.scss");
+
+var _three = require("three");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -49696,19 +49706,24 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Timer = /*#__PURE__*/function () {
-  function Timer() {
-    _classCallCheck(this, Timer);
+var Navigation = /*#__PURE__*/function () {
+  function Navigation() {
+    _classCallCheck(this, Navigation);
 
-    this.interval = 2000;
+    this.container = new _three.Object3D();
+    this.interval = 1000;
     this.time = 12 * 24 * 60 * 60 * 1000 + 12 * 60 * 60 * 1000;
     this.endtime = '30 Dec 2020 00:12:00 GMT';
     this.timer = null;
     this.$timer = document.querySelector('.timer');
-    this.startTimer(); //  this.events()
+    this.startTimer();
+    this.$music_button = document.querySelector('.music_button');
+    this.$music = document.getElementById("music");
+    this.isPlaying = false;
+    this.events();
   }
 
-  _createClass(Timer, [{
+  _createClass(Navigation, [{
     key: "startTimer",
     value: function startTimer() {
       var _this = this;
@@ -49723,7 +49738,7 @@ var Timer = /*#__PURE__*/function () {
           var minutes = Math.floor(total / countMinute % 60);
           var hours = Math.floor(total / countHour % 24);
           var days = Math.floor(total / countDay);
-          _this.$timer.innerHTML = "d".concat(days, " h").concat(hours, " m").concat(minutes);
+          _this.$timer.innerHTML = "d".concat(days, " h").concat(hours);
         } else {
           _this.time = 0;
         }
@@ -49734,31 +49749,621 @@ var Timer = /*#__PURE__*/function () {
     value: function events() {
       var _this2 = this;
 
-      window.addEventListener('click', function () {
-        return _this2.updateTimer();
+      this.$music_button.addEventListener('click', function () {
+        _this2.handleMusic();
       });
     }
   }, {
-    key: "updateTimer",
-    value: function updateTimer() {
-      this.interval = this.interval / 2;
-      clearInterval(this.timer);
-      this.startTimer();
+    key: "handleMusic",
+    value: function handleMusic() {
+      var _this3 = this;
+
+      this.$music.volume = 0.08;
+      this.isPlaying ? this.$music.pause() : this.$music.play();
+
+      this.$music.onplaying = function () {
+        _this3.$music_button.classList.add('play');
+
+        _this3.isPlaying = true;
+      };
+
+      this.$music.onpause = function () {
+        _this3.$music_button.classList.remove('play');
+
+        _this3.isPlaying = false;
+      };
     }
   }]);
 
-  return Timer;
+  return Navigation;
 }();
 
-exports.default = Timer;
-},{"../../css/timer.scss":"css/timer.scss"}],"index.js":[function(require,module,exports) {
+exports.default = Navigation;
+},{"../../css/navigation.scss":"css/navigation.scss","three":"node_modules/three/build/three.module.js"}],"node_modules/splitting/dist/splitting.css":[function(require,module,exports) {
+
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+},{"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/splitting/dist/splitting-cells.css":[function(require,module,exports) {
+
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+},{"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/splitting/dist/splitting.js":[function(require,module,exports) {
+var define;
+var global = arguments[3];
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.Splitting = factory());
+}(this, (function () { 'use strict';
+
+var root = document;
+var createText = root.createTextNode.bind(root);
+
+/**
+ * # setProperty
+ * Apply a CSS var
+ * @param el{HTMLElement} 
+ * @param varName {string} 
+ * @param value {string|number}  
+ */
+function setProperty(el, varName, value) {
+    el.style.setProperty(varName, value);
+} 
+
+/**
+ * 
+ * @param {Node} el 
+ * @param {Node} child 
+ */
+function appendChild(el, child) {
+  return el.appendChild(child);
+}
+
+function createElement(parent, key, text, whitespace) {
+  var el = root.createElement('span');
+  key && (el.className = key); 
+  if (text) { 
+      !whitespace && el.setAttribute("data-" + key, text);
+      el.textContent = text; 
+  }
+  return (parent && appendChild(parent, el)) || el;
+}
+
+function getData(el, key) {
+  return el.getAttribute("data-" + key)
+}
+
+/**
+ * 
+ * @param e {import('../types').Target} 
+ * @param parent {HTMLElement}
+ * @returns {HTMLElement[]}
+ */
+function $(e, parent) {
+    return !e || e.length == 0
+        ? // null or empty string returns empty array
+          []
+        : e.nodeName
+            ? // a single element is wrapped in an array
+              [e]
+            : // selector and NodeList are converted to Element[]
+              [].slice.call(e[0].nodeName ? e : (parent || root).querySelectorAll(e));
+}
+
+/**
+ * Creates and fills an array with the value provided
+ * @template {T}
+ * @param {number} len
+ * @param {() => T} valueProvider
+ * @return {T}
+ */
+function Array2D(len) {
+    var a = [];
+    for (; len--; ) {
+        a[len] = [];
+    }
+    return a;
+}
+
+function each(items, fn) {
+    items && items.some(fn);
+}
+
+function selectFrom(obj) {
+    return function (key) {
+        return obj[key];
+    }
+}
+
+/**
+ * # Splitting.index
+ * Index split elements and add them to a Splitting instance.
+ *
+ * @param element {HTMLElement}
+ * @param key {string}
+ * @param items {HTMLElement[] | HTMLElement[][]}
+ */
+function index(element, key, items) {
+    var prefix = '--' + key;
+    var cssVar = prefix + "-index";
+
+    each(items, function (items, i) {
+        if (Array.isArray(items)) {
+            each(items, function(item) {
+                setProperty(item, cssVar, i);
+            });
+        } else {
+            setProperty(items, cssVar, i);
+        }
+    });
+
+    setProperty(element, prefix + "-total", items.length);
+}
+
+/**
+ * @type {Record<string, import('./types').ISplittingPlugin>}
+ */
+var plugins = {};
+
+/**
+ * @param by {string}
+ * @param parent {string}
+ * @param deps {string[]}
+ * @return {string[]}
+ */
+function resolvePlugins(by, parent, deps) {
+    // skip if already visited this dependency
+    var index = deps.indexOf(by);
+    if (index == -1) {
+        // if new to dependency array, add to the beginning
+        deps.unshift(by);
+
+        // recursively call this function for all dependencies
+        each(plugins[by].depends, function(p) {
+            resolvePlugins(p, by, deps);
+        });
+    } else {
+        // if this dependency was added already move to the left of
+        // the parent dependency so it gets loaded in order
+        var indexOfParent = deps.indexOf(parent);
+        deps.splice(index, 1);
+        deps.splice(indexOfParent, 0, by);
+    }
+    return deps;
+}
+
+/**
+ * Internal utility for creating plugins... essentially to reduce
+ * the size of the library
+ * @param {string} by 
+ * @param {string} key 
+ * @param {string[]} depends 
+ * @param {Function} split 
+ * @returns {import('./types').ISplittingPlugin}
+ */
+function createPlugin(by, depends, key, split) {
+    return {
+        by: by,
+        depends: depends,
+        key: key,
+        split: split
+    }
+}
+
+/**
+ *
+ * @param by {string}
+ * @returns {import('./types').ISplittingPlugin[]}
+ */
+function resolve(by) {
+    return resolvePlugins(by, 0, []).map(selectFrom(plugins));
+}
+
+/**
+ * Adds a new plugin to splitting
+ * @param opts {import('./types').ISplittingPlugin}
+ */
+function add(opts) {
+    plugins[opts.by] = opts;
+}
+
+/**
+ * # Splitting.split
+ * Split an element's textContent into individual elements
+ * @param el {Node} Element to split
+ * @param key {string}
+ * @param splitOn {string}
+ * @param includeSpace {boolean}
+ * @returns {HTMLElement[]}
+ */
+function splitText(el, key, splitOn, includePrevious, preserveWhitespace) {
+    // Combine any strange text nodes or empty whitespace.
+    el.normalize();
+
+    // Use fragment to prevent unnecessary DOM thrashing.
+    var elements = [];
+    var F = document.createDocumentFragment();
+
+    if (includePrevious) {
+        elements.push(el.previousSibling);
+    }
+
+    var allElements = [];
+    $(el.childNodes).some(function(next) {
+        if (next.tagName && !next.hasChildNodes()) {
+            // keep elements without child nodes (no text and no children)
+            allElements.push(next);
+            return;
+        }
+        // Recursively run through child nodes
+        if (next.childNodes && next.childNodes.length) {
+            allElements.push(next);
+            elements.push.apply(elements, splitText(next, key, splitOn, includePrevious, preserveWhitespace));
+            return;
+        }
+
+        // Get the text to split, trimming out the whitespace
+        /** @type {string} */
+        var wholeText = next.wholeText || '';
+        var contents = wholeText.trim();
+
+        // If there's no text left after trimming whitespace, continue the loop
+        if (contents.length) {
+            // insert leading space if there was one
+            if (wholeText[0] === ' ') {
+                allElements.push(createText(' '));
+            }
+            // Concatenate the split text children back into the full array
+            each(contents.split(splitOn), function(splitText, i) {
+                if (i && preserveWhitespace) {
+                    allElements.push(createElement(F, "whitespace", " ", preserveWhitespace));
+                }
+                var splitEl = createElement(F, key, splitText);
+                elements.push(splitEl);
+                allElements.push(splitEl);
+            }); 
+            // insert trailing space if there was one
+            if (wholeText[wholeText.length - 1] === ' ') {
+                allElements.push(createText(' '));
+            }
+        }
+    });
+
+    each(allElements, function(el) {
+        appendChild(F, el);
+    });
+
+    // Clear out the existing element
+    el.innerHTML = "";
+    appendChild(el, F);
+    return elements;
+}
+
+/** an empty value */
+var _ = 0;
+
+function copy(dest, src) {
+    for (var k in src) {
+        dest[k] = src[k];
+    }
+    return dest;
+}
+
+var WORDS = 'words';
+
+var wordPlugin = createPlugin(
+    /*by: */ WORDS,
+    /*depends: */ _,
+    /*key: */ 'word', 
+    /*split: */ function(el) {
+        return splitText(el, 'word', /\s+/, 0, 1)
+    }
+);
+
+var CHARS = "chars";
+
+var charPlugin = createPlugin(
+    /*by: */ CHARS,
+    /*depends: */ [WORDS],
+    /*key: */ "char", 
+    /*split: */ function(el, options, ctx) {
+        var results = [];
+
+        each(ctx[WORDS], function(word, i) {
+            results.push.apply(results, splitText(word, "char", "", options.whitespace && i));
+        });
+
+        return results;
+    }
+);
+
+/**
+ * # Splitting
+ * 
+ * @param opts {import('./types').ISplittingOptions} 
+ */
+function Splitting (opts) {
+  opts = opts || {};
+  var key = opts.key;
+
+  return $(opts.target || '[data-splitting]').map(function(el) {
+    var ctx = el['🍌'];  
+    if (!opts.force && ctx) {
+      return ctx;
+    }
+
+    ctx = el['🍌'] = { el: el };
+    var items = resolve(opts.by || getData(el, 'splitting') || CHARS);
+    var opts2 = copy({}, opts);
+    each(items, function(plugin) {
+      if (plugin.split) {
+        var pluginBy = plugin.by;
+        var key2 = (key ? '-' + key : '') + plugin.key;
+        var results = plugin.split(el, opts2, ctx);
+        key2 && index(el, key2, results);
+        ctx[pluginBy] = results;
+        el.classList.add(pluginBy);
+      } 
+    });
+
+    el.classList.add('splitting');
+    return ctx;
+  })
+}
+
+/**
+ * # Splitting.html
+ * 
+ * @param opts {import('./types').ISplittingOptions}
+ */
+function html(opts) {
+  opts = opts || {};
+  var parent = opts.target =  createElement();
+  parent.innerHTML = opts.content;
+  Splitting(opts);
+  return parent.outerHTML
+}
+
+Splitting.html = html;
+Splitting.add = add;
+
+function detectGrid(el, options, side) {
+    var items = $(options.matching || el.children, el);
+    var c = {};
+
+    each(items, function(w) {
+        var val = Math.round(w[side]);
+        (c[val] || (c[val] = [])).push(w);
+    });
+
+    return Object.keys(c).map(Number).sort(byNumber).map(selectFrom(c));
+}
+
+function byNumber(a, b) {
+    return a - b;
+}
+
+var linePlugin = createPlugin(
+    /*by: */ 'lines',
+    /*depends: */ [WORDS],
+    /*key: */ 'line',
+    /*split: */ function(el, options, ctx) {
+      return detectGrid(el, { matching: ctx[WORDS] }, 'offsetTop')
+    }
+);
+
+var itemPlugin = createPlugin(
+    /*by: */ 'items',
+    /*depends: */ _,
+    /*key: */ 'item', 
+    /*split: */ function(el, options) {
+        return $(options.matching || el.children, el)
+    }
+);
+
+var rowPlugin = createPlugin(
+    /*by: */ 'rows',
+    /*depends: */ _,
+    /*key: */ 'row', 
+    /*split: */ function(el, options) {
+        return detectGrid(el, options, "offsetTop");
+    }
+);
+
+var columnPlugin = createPlugin(
+    /*by: */ 'cols',
+    /*depends: */ _,
+    /*key: */ "col", 
+    /*split: */ function(el, options) {
+        return detectGrid(el, options, "offsetLeft");
+    }
+);
+
+var gridPlugin = createPlugin(
+    /*by: */ 'grid',
+    /*depends: */ ['rows', 'cols']
+);
+
+var LAYOUT = "layout";
+
+var layoutPlugin = createPlugin(
+    /*by: */ LAYOUT,
+    /*depends: */ _,
+    /*key: */ _,
+    /*split: */ function(el, opts) {
+        // detect and set options
+        var rows =  opts.rows = +(opts.rows || getData(el, 'rows') || 1);
+        var columns = opts.columns = +(opts.columns || getData(el, 'columns') || 1);
+
+        // Seek out the first <img> if the value is true 
+        opts.image = opts.image || getData(el, 'image') || el.currentSrc || el.src;
+        if (opts.image) {
+            var img = $("img", el)[0];
+            opts.image = img && (img.currentSrc || img.src);
+        }
+
+        // add optional image to background
+        if (opts.image) {
+            setProperty(el, "background-image", "url(" + opts.image + ")");
+        }
+
+        var totalCells = rows * columns;
+        var elements = [];
+
+        var container = createElement(_, "cell-grid");
+        while (totalCells--) {
+            // Create a span
+            var cell = createElement(container, "cell");
+            createElement(cell, "cell-inner");
+            elements.push(cell);
+        }
+
+        // Append elements back into the parent
+        appendChild(el, container);
+
+        return elements;
+    }
+);
+
+var cellRowPlugin = createPlugin(
+    /*by: */ "cellRows",
+    /*depends: */ [LAYOUT],
+    /*key: */ "row",
+    /*split: */ function(el, opts, ctx) {
+        var rowCount = opts.rows;
+        var result = Array2D(rowCount);
+
+        each(ctx[LAYOUT], function(cell, i, src) {
+            result[Math.floor(i / (src.length / rowCount))].push(cell);
+        });
+
+        return result;
+    }
+);
+
+var cellColumnPlugin = createPlugin(
+    /*by: */ "cellColumns",
+    /*depends: */ [LAYOUT],
+    /*key: */ "col",
+    /*split: */ function(el, opts, ctx) {
+        var columnCount = opts.columns;
+        var result = Array2D(columnCount);
+
+        each(ctx[LAYOUT], function(cell, i) {
+            result[i % columnCount].push(cell);
+        });
+
+        return result;
+    }
+);
+
+var cellPlugin = createPlugin(
+    /*by: */ "cells",
+    /*depends: */ ['cellRows', 'cellColumns'],
+    /*key: */ "cell", 
+    /*split: */ function(el, opt, ctx) { 
+        // re-index the layout as the cells
+        return ctx[LAYOUT];
+    }
+);
+
+// install plugins
+// word/char plugins
+add(wordPlugin);
+add(charPlugin);
+add(linePlugin);
+// grid plugins
+add(itemPlugin);
+add(rowPlugin);
+add(columnPlugin);
+add(gridPlugin);
+// cell-layout plugins
+add(layoutPlugin);
+add(cellRowPlugin);
+add(cellColumnPlugin);
+add(cellPlugin);
+
+return Splitting;
+
+})));
+
+},{}],"css/text.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"./../images/close.svg":[["close.4440cd52.svg","images/close.svg"],"images/close.svg"],"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Text.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+require("splitting/dist/splitting.css");
+
+require("splitting/dist/splitting-cells.css");
+
+var _splitting2 = _interopRequireDefault(require("splitting"));
+
+require("../../css/text.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Text = /*#__PURE__*/function () {
+  function Text(title, content) {
+    _classCallCheck(this, Text);
+
+    this.title = title;
+    this.content = content;
+    this.init();
+  }
+
+  _createClass(Text, [{
+    key: "init",
+    value: function init() {
+      var text__container = document.createElement("div");
+      text__container.classList.add('text__container');
+      var text__title = document.createElement("h2");
+      text__title.innerHTML = this.title;
+      text__title.setAttribute('data-splitting', '');
+      var text__content = document.createElement("p");
+      text__content.innerHTML = this.content;
+      text__content.setAttribute('data-splitting', '');
+      text__container.appendChild(text__title);
+      text__container.appendChild(text__content);
+      document.body.appendChild(text__container);
+      (0, _splitting2.default)();
+      text__title.addEventListener('click', function () {
+        text__container.classList.add('leave');
+      });
+    }
+  }]);
+
+  return Text;
+}();
+
+exports.default = Text;
+},{"splitting/dist/splitting.css":"node_modules/splitting/dist/splitting.css","splitting/dist/splitting-cells.css":"node_modules/splitting/dist/splitting-cells.css","splitting":"node_modules/splitting/dist/splitting.js","../../css/text.scss":"css/text.scss"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _app = _interopRequireDefault(require("./js/app"));
 
 var _Cursor = _interopRequireDefault(require("./js/Components/Cursor"));
 
-var _Timer = _interopRequireDefault(require("./js/Components/Timer"));
+var _Navigation = _interopRequireDefault(require("./js/Components/Navigation"));
+
+var _Text = _interopRequireDefault(require("./js/Components/Text"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49766,8 +50371,9 @@ new _app.default({
   canvas: document.querySelector('#_canvas')
 });
 new _Cursor.default();
-new _Timer.default();
-},{"./js/app":"js/app.js","./js/Components/Cursor":"js/Components/Cursor.js","./js/Components/Timer":"js/Components/Timer.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+new _Navigation.default();
+new _Text.default('Space Modulation', 'Its primary material is Space. The space of abandoned buildings where he immediately spots a "fragment" for its architectural quality, its light, which he then organizes and stages with the ultimate goal of creating a photographic image. He then deconstructs and then rebuilds his own space, as if it were his own studio.');
+},{"./js/app":"js/app.js","./js/Components/Cursor":"js/Components/Cursor.js","./js/Components/Navigation":"js/Components/Navigation.js","./js/Components/Text":"js/Components/Text.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -49795,7 +50401,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58427" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63031" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

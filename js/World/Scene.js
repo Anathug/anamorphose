@@ -11,24 +11,39 @@ export default class Scene {
         this.createScene()
     }
     createScene() {
-        const model = require('../../models/scene.gltf')
+
+        // const IMAGE = require('../../images/che.jpeg')
+
+        // var textureLoader = new THREE.TextureLoader();
+        // var texture = textureLoader.load( IMAGE );
+        // texture.flipY = false;
+        // var material = new THREE.MeshBasicMaterial( { map: texture } );
+        // console.log(material)
+
+        const model = require('../../models/untitled.gltf')
 
         const loader = new GLTFLoader()
         loader.load(
             model,
             (gltf) => {
-                console.log(gltf)
-
-                // 🚧 Animation modulation de l'espace
-                // this.cheminee = gltf.scene.children[8]
-                // this.cheminee.position.y = 100
-                // console.log(this.cheminee.position)
+                console.log(gltf.scene)
 
                 this.scene = gltf.scene
+                this.scene.scale.x = 0.05,
+                this.scene.scale.y = 0.05,
+                this.scene.scale.z = 0.05
+
+                // 🚧 Changement de texture
+                // this.cheminee = gltf.scene.children[0].children[0].children[0].children[0].children[8]
+                // this.cheminee.traverse ( ( o ) => {
+                //     if ( o.isMesh ) {
+                //       o.material.map = texture
+                //     }
+                //   } )
+                // console.log(this.cheminee)
+
                 this.container.add(this.scene)
-                this.scene.children.forEach((el) => {
-                    el.material = new THREE.MeshToonMaterial({ color: 0xffffff });
-                })
+
                 this.setMovement()
             },
         )

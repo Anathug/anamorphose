@@ -8,7 +8,7 @@
   left: 0;
   &__circle {
     circle {
-      stroke: black;
+      stroke: white;
       stroke-width: 1px;
       fill: transparent;
       stroke-dasharray: 500px;
@@ -21,7 +21,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     circle {
-      fill: black;
+      fill: white;
     }
   }
 }

@@ -8,7 +8,7 @@
   left: 0;
 }
 .cursor__circle circle {
-  stroke: black;
+  stroke: white;
   stroke-width: 1px;
   fill: transparent;
   stroke-dasharray: 500px;
@@ -21,14 +21,258 @@
   transform: translate(-50%, -50%);
 }
 .cursor__dot circle {
-  fill: black;
+  fill: white;
 }
 .timer {
   position: fixed;
   z-index: 100;
   pointer-events: none;
-  bottom: 40px;
-  left: 40px;
+  top: 80px;
+  right: 80px;
+  color: #E5E5E5;
+}
+
+.photo {
+  position: absolute;
+  z-index: 100;
+  bottom: 80px;
+  right: 80px;
+  display: flex;
+  align-items: flex-end;
+}
+.photo img {
+  width: 25px;
+  height: 25px;
+  transform: translateY(50%);
+}
+
+.music_button {
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 80px;
+  left: 80px;
+  z-index: 100;
+  padding-top: 20px;
+  padding-right: 20px;
+}
+.music_button span {
+  width: 2px;
+  margin-left: 5px;
+  background-color: white;
+}
+
+.music_button.play span {
+  animation: wave 0ms -800ms ease-in-out infinite alternate;
+}
+
+@keyframes wave {
+  0% {
+    opacity: 0.35;
+    height: 5px;
+  }
+  100% {
+    opacity: 1;
+    height: 20px;
+  }
+}
+.music_button span:nth-child(1) {
+  height: 2px;
+  animation-duration: 874ms;
+}
+.music_button span:nth-child(2) {
+  height: 2px;
+  animation-duration: 833ms;
+}
+.music_button span:nth-child(3) {
+  height: 2px;
+  animation-duration: 807ms;
+}
+.music_button span:nth-child(4) {
+  height: 2px;
+  animation-duration: 858ms;
+}
+.music_button span:nth-child(5) {
+  height: 2px;
+  animation-duration: 800ms;
+}
+/* Recommended styles for Splitting */
+.splitting .word,
+.splitting .char {
+  display: inline-block;
+}
+
+/* Psuedo-element chars */
+.splitting .char {
+  position: relative;
+}
+
+/**
+ * Populate the psuedo elements with the character to allow for expanded effects
+ * Set to `display: none` by default; just add `display: block` when you want
+ * to use the psuedo elements
+ */
+.splitting .char::before,
+.splitting .char::after {
+  content: attr(data-char);
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  transition: inherit;
+  user-select: none;
+}
+
+/* Expanded CSS Variables */
+
+.splitting {
+  /* The center word index */
+  --word-center: calc((var(--word-total) - 1) / 2);
+
+  /* The center character index */
+  --char-center: calc((var(--char-total) - 1) / 2);
+
+  /* The center character index */
+  --line-center: calc((var(--line-total) - 1) / 2);
+}
+
+.splitting .word {
+  /* Pecent (0-1) of the word's position */
+  --word-percent: calc(var(--word-index) / var(--word-total));
+
+  /* Pecent (0-1) of the line's position */
+  --line-percent: calc(var(--line-index) / var(--line-total));
+}
+
+.splitting .char {
+  /* Percent (0-1) of the char's position */
+  --char-percent: calc(var(--char-index) / var(--char-total));
+
+  /* Offset from center, positive & negative */
+  --char-offset: calc(var(--char-index) - var(--char-center));
+
+  /* Absolute distance from center, only positive */
+  --distance: calc(
+     (var(--char-offset) * var(--char-offset)) / var(--char-center)
+  );
+
+  /* Distance from center where -1 is the far left, 0 is center, 1 is far right */
+  --distance-sine: calc(var(--char-offset) / var(--char-center));
+
+  /* Distance from center where 1 is far left/far right, 0 is center */
+  --distance-percent: calc((var(--distance) / var(--char-center)));
+}
+
+.splitting.cells img { width: 100%; display: block; }
+
+@supports ( display: grid ) {
+  .splitting.cells {
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    visibility: hidden;
+  }
+
+  .splitting .cell-grid {
+    background: inherit;
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    display: grid;
+    grid-template: repeat( var(--row-total), 1fr ) / repeat( var(--col-total), 1fr );
+  }
+
+  .splitting .cell {
+    background: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .splitting .cell-inner {
+    background: inherit;
+    position: absolute;
+    visibility: visible;
+    /* Size to fit the whole container size */
+    width: calc(100% * var(--col-total));
+    height: calc(100% * var(--row-total));
+    /* Position properly */
+    left: calc(-100% * var(--col-index));
+    top: calc(-100% * var(--row-index));
+  }
+
+  /* Helper variables for advanced effects */
+  .splitting .cell {
+    --center-x: calc((var(--col-total) - 1) / 2);
+    --center-y: calc((var(--row-total) - 1) / 2);
+
+    /* Offset from center, positive & negative */
+    --offset-x: calc(var(--col-index) - var(--center-x));
+    --offset-y: calc(var(--row-index) - var(--center-y));
+
+    /* Absolute distance from center, only positive */
+    --distance-x: calc( (var(--offset-x) * var(--offset-x)) / var(--center-x) );
+
+    /* Absolute distance from center, only positive */
+    --distance-y: calc( (var(--offset-y) * var(--offset-y)) / var(--center-y) );
+  }
+}
+
+
+.text__container {
+  position: fixed;
+  z-index: 100;
+  top: 80px;
+  left: 80px;
+  width: 45vw;
+  display: flex;
+  flex-direction: column;
+}
+.text__container.leave .splitting .char, .text__container.leave :after {
+  animation: fade-out 0.6s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: calc(1ms * var(--char-index) + 300ms );
+}
+.text__container h2, .text__container p {
+  color: #E5E5E5;
+}
+.text__container h2 {
+  font-family: "Silk";
+  font-size: 70px;
+  line-height: 70px;
+  padding-bottom: 20px;
+  word-break: normal;
+  word-spacing: 100vw;
+  pointer-events: none;
+}
+.text__container h2:after {
+  content: url(/close.4440cd52.svg);
+  padding-left: 20px;
+  pointer-events: all;
+}
+.text__container p {
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 5%;
+}
+.text__container .splitting .char, .text__container :after {
+  animation: slide-in 0.7s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: calc(3ms * var(--char-index) + 1000ms );
+}
+.text__container :after {
+  animation-delay: 1000ms;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(1.5em);
+    opacity: 0;
+  }
+}
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
 }
 
 /*# sourceMappingURL=/anamorphose.e31bb0bc.css.map */

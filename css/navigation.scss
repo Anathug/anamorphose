@@ -1,0 +1,80 @@
+@import 'variables';
+
+.timer {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  top: $marge;
+  right: $marge;
+  color: $white;
+}
+
+.photo {
+  position: absolute;
+  z-index: 100;
+  bottom: $marge;
+  right: $marge;
+  display: flex;
+  align-items: flex-end;
+  img {
+    width: 25px;
+    height: 25px;
+    transform: translateY(50%);
+  }
+}
+
+.music_button {
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  bottom: $marge;
+  left: $marge;
+  z-index: 100;
+  padding-top: 20px;
+  padding-right: 20px;
+  span {
+    width: 2px;
+    margin-left: 5px;
+    background-color: white;
+  }
+}
+
+.music_button.play span {
+  animation: wave 0ms -800ms ease-in-out infinite alternate;
+}
+
+@keyframes wave {
+  0% {
+     opacity: .35;
+      height: 5px;
+  }
+  100% {
+      opacity: 1;
+      height: 20px;
+  }
+}
+
+.music_button {
+  span {
+    &:nth-child(1) {
+      height: 2px;
+      animation-duration: 874ms;
+    }
+    &:nth-child(2) {
+      height: 2px;
+      animation-duration: 833ms;
+    }
+    &:nth-child(3) {
+      height: 2px;
+      animation-duration: 807ms;
+    }
+    &:nth-child(4) {
+      height: 2px;
+      animation-duration: 858ms;
+    }
+    &:nth-child(5) {
+      height: 2px;
+      animation-duration: 800ms;
+    }
+  }
+}

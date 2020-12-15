@@ -7,9 +7,9 @@ export default class Camera {
         this.renderer = options.renderer
         this.container = new Object3D()
         this.params = {
-            positionX: 25,
-            positionY: 20,
-            positionZ: 50,
+            positionX: 500,
+            positionY: 500,
+            positionZ: 500,
             rotationX: -0.13,
             rotationY: 0.03,
             rotationZ: 0.02
@@ -30,7 +30,7 @@ export default class Camera {
             75,
             window.innerWidth / window.innerheight,
             0.1,
-            1000
+            10000
         )
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
@@ -59,7 +59,6 @@ export default class Camera {
         // this.camera.rotation.y = this.params.rotationY - mouseX / 1000
     }
     setPositionalAudio() {
-
 
     }
     setOrbitControls() {

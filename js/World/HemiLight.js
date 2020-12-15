@@ -7,7 +7,7 @@ export default class HemisphereLightSource {
 
         this.container = new Object3D()
         this.params = {
-            firstColor: 0xdc5353,
+            firstColor: 0xffffff,
             secondColor: 0xffffff,
             intensity: 0.6,
             positionX: 0,

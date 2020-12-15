@@ -23,6 +23,7 @@ export default class App {
         })
 
         this.renderer.setClearColor(0x000000, 1)
+        this.renderer.outputEncoding = THREE.GammaEncoding
         this.renderer.setPixelRatio(window.devicePixelRatio)
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         gsap.ticker.add(() => {
