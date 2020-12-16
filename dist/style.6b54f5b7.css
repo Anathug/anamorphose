@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, p {
 p {
   font-size: 14px;
   line-height: auto;
-  letter-spacing: 8%;
+  letter-spacing: 0.08em;
 }
 
 canvas {
@@ -41,6 +41,103 @@ canvas {
   left: 0;
   height: 100vh;
   width: 100vw;
+}
+
+._intro {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 200;
+}
+._intro.hidden {
+  animation: fade-out 1s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: calc(3ms * var(--char-index) + 1000ms );
+}
+._intro_first, ._intro_second {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+._intro_first {
+  width: 35vw;
+  align-items: flex-end;
+}
+._intro_first .splitting .char {
+  animation: slide-in 2s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: calc(3ms * var(--char-index) + 1000ms );
+}
+._intro_first div {
+  display: flex;
+  align-self: flex-end;
+}
+._intro_first div p {
+  width: fit-content;
+}
+._intro_first-citation {
+  font-family: "Silk";
+  font-size: 120px;
+  line-height: 90px;
+  padding-right: 10px;
+}
+._intro_first-citation.splitting .char {
+  animation: slide-in-title 2s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: calc(3ms * var(--char-index) + 1000ms );
+}
+._intro_first.hidden .splitting .char {
+  animation: fade-out 1s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: calc(1ms * var(--char-index) + 300ms );
+}
+._intro_first.hidden-citation.splitting .char {
+  animation: fade-out 1s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: calc(1ms * var(--char-index) + 300ms );
+}
+._intro_first-name {
+  font-size: 10px;
+}
+._intro_second {
+  width: 40vw;
+  text-align: center;
+}
+._intro_second-title {
+  font-family: "Silk";
+  font-size: 80px;
+  letter-spacing: 0.28em;
+}
+._intro_second p:nth-child(1) {
+  margin-bottom: calc(50vh - 144px);
+}
+._intro_second p:nth-child(3) {
+  margin-top: calc(50vh - 144px);
+}
+._intro_second p.splitting .char {
+  animation: slide-in-title 2s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: calc(100ms * var(--char-index) + 1000ms );
+}
+._intro_second.hidden p.splitting .char {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(1.5em);
+    opacity: 0;
+  }
+}
+@keyframes slide-in-title {
+  from {
+    transform: translateY(0.5em);
+    opacity: 0;
+  }
+}
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
 }
 
 /*# sourceMappingURL=/style.6b54f5b7.css.map */

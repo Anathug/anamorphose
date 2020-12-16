@@ -1,6 +1,6 @@
 .cursor {
   position: fixed;
-  z-index: 100;
+  z-index: 300;
   pointer-events: none;
   height: 44px;
   width: 44px;
@@ -13,16 +13,39 @@
   fill: transparent;
   stroke-dasharray: 500px;
   stroke-dashoffset: 500px;
+  -webkit-transition: stroke 0.4s ease;
+  -moz-transition: stroke 0.4s ease;
+  -o-transition: stroke 0.4s ease;
+  transition: stroke 0.4s ease;
 }
 .cursor__dot {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 52%;
+  left: 52%;
   transform: translate(-50%, -50%);
 }
 .cursor__dot circle {
   fill: white;
+  -webkit-transition: fill 0.4s ease;
+  -moz-transition: fill 0.4s ease;
+  -o-transition: fill 0.4s ease;
+  transition: fill 0.4s ease;
 }
+.cursor.black .cursor__circle circle {
+  stroke: black;
+}
+.cursor.black .cursor__dot circle {
+  fill: black;
+}
+.navigation div {
+  animation: fade-in 1s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: 500ms;
+}
+.navigation.hidden div {
+  animation: fade-out 1s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: calc(3ms * var(--char-index) + 1000ms );
+}
+
 .timer {
   position: fixed;
   z-index: 100;
@@ -30,6 +53,11 @@
   top: 80px;
   right: 80px;
   color: #E5E5E5;
+}
+.timer span {
+  font-family: "Silk";
+  font-size: 24px;
+  letter-spacing: 0;
 }
 
 .photo {
@@ -73,28 +101,81 @@
   }
   100% {
     opacity: 1;
-    height: 20px;
+    height: 15px;
   }
 }
 .music_button span:nth-child(1) {
   height: 2px;
-  animation-duration: 874ms;
+  animation-duration: 974ms;
 }
 .music_button span:nth-child(2) {
   height: 2px;
-  animation-duration: 833ms;
+  animation-duration: 933ms;
 }
 .music_button span:nth-child(3) {
   height: 2px;
-  animation-duration: 807ms;
+  animation-duration: 907ms;
 }
 .music_button span:nth-child(4) {
   height: 2px;
-  animation-duration: 858ms;
+  animation-duration: 958ms;
 }
 .music_button span:nth-child(5) {
   height: 2px;
-  animation-duration: 800ms;
+  animation-duration: 900ms;
+}
+
+.photo_layout.hidden img {
+  animation: fade-out 1s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: calc(3ms * var(--char-index) + 1000ms );
+}
+.photo_layout img {
+  animation: fade-in 1s cubic-bezier(0.5, 0, 0.5, 1) both;
+  animation-delay: 500ms;
+  position: absolute;
+  z-index: 99;
+}
+.photo_layout img:nth-child(1) {
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.photo_layout img:nth-child(2) {
+  top: 80px;
+  left: 80px;
+  transform: scaleX(-1) scaleY(-1);
+}
+.photo_layout img:nth-child(3) {
+  top: 80px;
+  right: 80px;
+  transform: scaleY(-1);
+}
+.photo_layout img:nth-child(4) {
+  bottom: 80px;
+  right: 80px;
+}
+.photo_layout img:nth-child(5) {
+  bottom: 80px;
+  left: 80px;
+  transform: scaleX(-1);
+}
+.photo_layout img:nth-child(6) {
+  top: 100px;
+  right: 100px;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 /* Recommended styles for Splitting */
 .splitting .word,
@@ -229,7 +310,7 @@
   display: flex;
   flex-direction: column;
 }
-.text__container.leave .splitting .char, .text__container.leave :after {
+.text__container.hidden .splitting .char, .text__container.hidden :after {
   animation: fade-out 0.6s cubic-bezier(0.5, 0, 0.5, 1) both;
   animation-delay: calc(1ms * var(--char-index) + 300ms );
 }
@@ -246,14 +327,14 @@
   pointer-events: none;
 }
 .text__container h2:after {
-  content: url(/close.4440cd52.svg);
+  content: url(/arrow.305c14c2.svg);
   padding-left: 20px;
   pointer-events: all;
 }
 .text__container p {
   font-size: 16px;
   line-height: 28px;
-  letter-spacing: 5%;
+  letter-spacing: 0.05em;
 }
 .text__container .splitting .char, .text__container :after {
   animation: slide-in 0.7s cubic-bezier(0.5, 0, 0.5, 1) both;
@@ -261,6 +342,12 @@
 }
 .text__container :after {
   animation-delay: 1000ms;
+}
+.text__container.dark h2, .text__container.dark p {
+  color: black;
+}
+.text__container.dark h2:after {
+  content: url(/arrow_black.cec716a6.svg);
 }
 
 @keyframes slide-in {

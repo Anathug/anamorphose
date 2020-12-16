@@ -7,10 +7,27 @@
     <link rel="stylesheet" href="css/style.scss">
 </head>
 <body>
-    <div class="container">
-        <div class="intro">
+    <div id="_container" class="container">
+        <div id="_intro" class="_intro">
+            <div class="_intro_first">
+                <div>
+                    <span data-splitting class="_intro_first-citation">“</span>
+                    <p data-splitting>
+                        A moment of solitude, a moment of poetry and then I work in these places for the
+                         moment of intense freedom that I can find there...
+                    </p>
+                </div>
+                <p data-splitting class="_intro_first-name">
+                    Georges Rousse
+                </p>
+            </div>
+            <div class="_intro_second hidden">
+                <p data-splitting>Georges Rousse</p>
+                <p class="_intro_second-title" data-splitting>Fragment</p>
+                <p class="_intro_second-start" data-splitting>Start the experience</p>
+            </div>
         </div>
-        <div class="cursor">
+        <div class="cursor black">
             <svg class="cursor__circle" height="44" width="44">
                 <circle cx="22" cy="22" r="20">
             </svg>
@@ -18,16 +35,26 @@
                 <circle cx="3" cy="3" r="2">
             </svg>
         </div>
-        <div class="timer"></div>
-        <div class="music_button">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="navigation">
+            <div class="timer"></div>
+            <div class="music_button">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="photo">
+                <img src="images/photo.svg" alt="">
+            </div>
         </div>
-        <div class="photo">
-            <img src="images/photo.svg" alt="">
+        <div class="photo_layout hidden">
+            <img src="images/target.svg" alt="">
+            <img src="images/corner.svg" alt="">
+            <img src="images/corner.svg" alt="">
+            <img src="images/corner.svg" alt="">
+            <img src="images/corner.svg" alt="">
+            <img class="photo_close" src="images/close.svg" alt="">
         </div>
     </div>
     <canvas id="_canvas"></canvas>

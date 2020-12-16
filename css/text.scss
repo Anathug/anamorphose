@@ -9,7 +9,7 @@
     width: 45vw;
     display: flex;
     flex-direction: column;
-    &.leave {
+    &.hidden {
       .splitting .char, :after {
         animation: fade-out .6s cubic-bezier(.5, 0, .5, 1) both;
         animation-delay: calc(1ms * var(--char-index) + 300ms );
@@ -26,16 +26,16 @@
       word-break: normal;
       word-spacing: 100vw;
       pointer-events: none;
-    }
-    h2:after {
-      content: url(../images/close.svg);
-      padding-left: 20px;
-      pointer-events: all;
+      &:after {
+        content: url(../images/arrow.svg);
+        padding-left: 20px;
+        pointer-events: all;
+      }
     }
     p {
       font-size: 16px;
       line-height: 28px;
-      letter-spacing: 5%;
+      letter-spacing: 0.05em;
     }
     .splitting .char, :after {
       animation: slide-in .7s cubic-bezier(.5, 0, .5, 1) both;
@@ -44,9 +44,16 @@
     :after {
       animation-delay: 1000ms;
     }
+    &.dark {
+      h2, p {
+        color: black;
+      }
+      h2:after {
+        content: url(../images/arrow_black.svg);
+      }
+    }
   }
 }
-
 
 @keyframes slide-in {
   from {

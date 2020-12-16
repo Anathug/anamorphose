@@ -1,5 +1,17 @@
 @import 'variables';
 
+.navigation {
+  div {
+    animation: fade-in 1s cubic-bezier(.5, 0, .5, 1) both;
+    animation-delay: 500ms;
+  }
+  &.hidden div {
+    animation: fade-out 1s cubic-bezier(.5, 0, .5, 1) both;
+    animation-delay: calc(3ms * var(--char-index) + 1000ms );
+  }
+}
+
+
 .timer {
   position: fixed;
   z-index: 100;
@@ -7,6 +19,11 @@
   top: $marge;
   right: $marge;
   color: $white;
+  span {
+    font-family: 'Silk';
+    font-size: 24px;
+    letter-spacing: 0;
+  }
 }
 
 .photo {
@@ -50,7 +67,7 @@
   }
   100% {
       opacity: 1;
-      height: 20px;
+      height: 15px;
   }
 }
 
@@ -58,23 +75,80 @@
   span {
     &:nth-child(1) {
       height: 2px;
-      animation-duration: 874ms;
+      animation-duration: 974ms;
     }
     &:nth-child(2) {
       height: 2px;
-      animation-duration: 833ms;
+      animation-duration: 933ms;
     }
     &:nth-child(3) {
       height: 2px;
-      animation-duration: 807ms;
+      animation-duration: 907ms;
     }
     &:nth-child(4) {
       height: 2px;
-      animation-duration: 858ms;
+      animation-duration: 958ms;
     }
     &:nth-child(5) {
       height: 2px;
-      animation-duration: 800ms;
+      animation-duration: 900ms;
     }
+  }
+}
+
+.photo {
+  &_layout {
+    &.hidden img {
+      animation: fade-out 1s cubic-bezier(.5, 0, .5, 1) both;
+      animation-delay: calc(3ms * var(--char-index) + 1000ms );
+    }
+    img {
+      animation: fade-in 1s cubic-bezier(.5, 0, .5, 1) both;
+      animation-delay: 500ms;
+      position: absolute;
+      z-index: 99;
+      &:nth-child(1) {
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+      &:nth-child(2) {
+        top: $marge;
+        left: $marge;
+        transform: scaleX(-1) scaleY(-1);
+      }
+      &:nth-child(3) {
+        top: $marge;
+        right: $marge;
+        transform: scaleY(-1);
+      }
+      &:nth-child(4) {
+        bottom: $marge;
+        right: $marge;
+      }
+      &:nth-child(5) {
+        bottom: $marge;
+        left: $marge;
+        transform: scaleX(-1);
+      }
+      &:nth-child(6) {
+        top: 100px;
+        right: 100px;
+      }
+    }
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

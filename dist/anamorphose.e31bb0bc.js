@@ -49711,6 +49711,7 @@ var Navigation = /*#__PURE__*/function () {
     _classCallCheck(this, Navigation);
 
     this.container = new _three.Object3D();
+    this.$navigation = document.querySelector('.navigation');
     this.interval = 1000;
     this.time = 12 * 24 * 60 * 60 * 1000 + 12 * 60 * 60 * 1000;
     this.endtime = '30 Dec 2020 00:12:00 GMT';
@@ -49720,6 +49721,10 @@ var Navigation = /*#__PURE__*/function () {
     this.$music_button = document.querySelector('.music_button');
     this.$music = document.getElementById("music");
     this.isPlaying = false;
+    this.$photo_button = document.querySelector('.photo');
+    this.$photo_close = document.querySelector('.photo_close');
+    this.$photo_layout = document.querySelector('.photo_layout');
+    this.isLayout = false;
     this.events();
   }
 
@@ -49735,10 +49740,9 @@ var Navigation = /*#__PURE__*/function () {
           var countHour = 60 * countMinute;
           var countDay = 24 * countHour;
           var total = Date.parse(_this.endtime) - Date.parse(new Date());
-          var minutes = Math.floor(total / countMinute % 60);
           var hours = Math.floor(total / countHour % 24);
           var days = Math.floor(total / countDay);
-          _this.$timer.innerHTML = "d".concat(days, " h").concat(hours);
+          _this.$timer.innerHTML = "d<span>".concat(days, "</span> h<span>").concat(hours, "</span>");
         } else {
           _this.time = 0;
         }
@@ -49751,6 +49755,12 @@ var Navigation = /*#__PURE__*/function () {
 
       this.$music_button.addEventListener('click', function () {
         _this2.handleMusic();
+      });
+      this.$photo_button.addEventListener('click', function () {
+        _this2.handlePhoto();
+      });
+      this.$photo_close.addEventListener('click', function () {
+        _this2.handlePhoto();
       });
     }
   }, {
@@ -49772,6 +49782,25 @@ var Navigation = /*#__PURE__*/function () {
 
         _this3.isPlaying = false;
       };
+    }
+  }, {
+    key: "handlePhoto",
+    value: function handlePhoto() {
+      this.isLayout ? this.hidePhoto() : this.showPhoto();
+    }
+  }, {
+    key: "hidePhoto",
+    value: function hidePhoto() {
+      this.$photo_layout.classList.add('hidden');
+      this.$navigation.classList.remove('hidden');
+      this.isLayout = false;
+    }
+  }, {
+    key: "showPhoto",
+    value: function showPhoto() {
+      this.$photo_layout.classList.remove('hidden');
+      this.$navigation.classList.add('hidden');
+      this.isLayout = true;
     }
   }]);
 
@@ -50296,7 +50325,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../images/close.svg":[["close.4440cd52.svg","images/close.svg"],"images/close.svg"],"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Text.js":[function(require,module,exports) {
+},{"./../images/arrow.svg":[["arrow.305c14c2.svg","images/arrow.svg"],"images/arrow.svg"],"./../images/arrow_black.svg":[["arrow_black.cec716a6.svg","images/arrow_black.svg"],"images/arrow_black.svg"],"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Text.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50321,11 +50350,13 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var Text = /*#__PURE__*/function () {
-  function Text(title, content) {
+  function Text(_options) {
     _classCallCheck(this, Text);
 
-    this.title = title;
-    this.content = content;
+    this.title = _options.title;
+    this.dark = _options.dark;
+    this.div = _options.div;
+    this.content = _options.content;
     this.init();
   }
 
@@ -50334,6 +50365,11 @@ var Text = /*#__PURE__*/function () {
     value: function init() {
       var text__container = document.createElement("div");
       text__container.classList.add('text__container');
+
+      if (this.dark) {
+        text__container.classList.add('dark');
+      }
+
       var text__title = document.createElement("h2");
       text__title.innerHTML = this.title;
       text__title.setAttribute('data-splitting', '');
@@ -50342,10 +50378,10 @@ var Text = /*#__PURE__*/function () {
       text__content.setAttribute('data-splitting', '');
       text__container.appendChild(text__title);
       text__container.appendChild(text__content);
-      document.body.appendChild(text__container);
+      this.div.appendChild(text__container);
       (0, _splitting2.default)();
       text__title.addEventListener('click', function () {
-        text__container.classList.add('leave');
+        text__container.classList.add('hidden');
       });
     }
   }]);
@@ -50365,15 +50401,79 @@ var _Navigation = _interopRequireDefault(require("./js/Components/Navigation"));
 
 var _Text = _interopRequireDefault(require("./js/Components/Text"));
 
+require("splitting/dist/splitting.css");
+
+require("splitting/dist/splitting-cells.css");
+
+var _splitting2 = _interopRequireDefault(require("splitting"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 new _app.default({
   canvas: document.querySelector('#_canvas')
 });
 new _Cursor.default();
-new _Navigation.default();
-new _Text.default('Space Modulation', 'Its primary material is Space. The space of abandoned buildings where he immediately spots a "fragment" for its architectural quality, its light, which he then organizes and stages with the ultimate goal of creating a photographic image. He then deconstructs and then rebuilds his own space, as if it were his own studio.');
-},{"./js/app":"js/app.js","./js/Components/Cursor":"js/Components/Cursor.js","./js/Components/Navigation":"js/Components/Navigation.js","./js/Components/Text":"js/Components/Text.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+new _Navigation.default(); // new Text( {
+//     div: document.querySelector('#_intro'),
+//     dark : true,
+//     title: 'George Rousse',
+//     content: `George Rousse is a French plastic arts photographer.
+//     While he was a medical student in Nice, he decided to learn the techniques of shooting and printing from a professional. His passion pushes him to devote himself entirely to an artistic practice of this medium.
+//     It is with the discovery of Land Art and Malevitch's Black Square on White Background that Georges Rousse chose to intervene in the photographic field, establishing a new relationship between painting and Space. He then takes over abandoned places that he has always liked to transform them into pictorial space and build a unique, ephemeral work that only photography can restore.
+//     His strong and singular works shift the boundaries between traditional media and immediately imposed themselves in the landscape of contemporary art.`
+// })
+// new Text( {
+//     div: document.querySelector('#_container'),
+//     dark : false,
+//     title: 'Space modulation',
+//     content: `Its primary material is Space. The space of abandoned buildings where he immediately spots a "fragment" for its architectural quality, its light, which he then organizes and stages with the ultimate goal of creating a photographic image. He then deconstructs and then rebuilds his own space, as if it were his own studio.`
+// })
+// new Text( {
+//     div: document.querySelector('#_container'),
+//     dark : false,
+//     title: 'Circle drawing',
+//     content: `Once his space has been modelled, George Rousse appropriates it a little more deeply.
+//      Upstream, he draws, imagines these forms flooding the walls. In an intimate relationship with perspective,
+//       he defies the laws of the visible. This is where the drawing in space begins.
+//       The square in the eye, he traces little by little his shape, which extends over all the surfaces of his space.`
+// })
+// new Text( {
+//     div: document.querySelector('#_container'),
+//     dark : false,
+//     title: 'Color',
+//     content: `These places of precariousness, rejected, ignored, often degraded,
+//     whose disappearance is near, are like a metaphor of the ferocious flow of Time towards oblivion and death.
+//     By transforming them into works of art, Georges Rousse offers them a new, ephemeral life, and the coloring stage has a great deal to do with it.
+//     Because photography, the finality of the pictorial action, is a flat surface, the shapes he paints or draws,
+//     the volumes and architectures he builds are exploded, disaggregated, on the different spatial planes of buildings, sometimes monumental. Photography gathers the Image in a masterful synthesis where Painting, Architecture, Drawing are inscribed in Space to make visible the fiction of the artist.`
+// })
+
+(0, _splitting2.default)();
+var intro = document.getElementById('_intro');
+var interval = 3000;
+var step = 0;
+
+window.onload = function () {
+  var start_button = document.querySelector('._intro_second-start');
+  var cursor = document.body.querySelector('.cursor');
+  start_button.addEventListener('click', function () {
+    intro.classList.add('hidden');
+    cursor.classList.remove('black');
+    setTimeout(function () {
+      intro.style.display = 'none';
+    }, 1000);
+  });
+  var intro_interval = setInterval(function () {
+    if (step < intro.children.length - 1) {
+      intro.children[step].classList.add('hidden');
+      intro.children[step + 1].classList.remove('hidden');
+      step += 1;
+    } else {
+      clearInterval(intro_interval);
+    }
+  }, interval);
+};
+},{"./js/app":"js/app.js","./js/Components/Cursor":"js/Components/Cursor.js","./js/Components/Navigation":"js/Components/Navigation.js","./js/Components/Text":"js/Components/Text.js","splitting/dist/splitting.css":"node_modules/splitting/dist/splitting.css","splitting/dist/splitting-cells.css":"node_modules/splitting/dist/splitting-cells.css","splitting":"node_modules/splitting/dist/splitting.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -50401,7 +50501,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63031" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50147" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
